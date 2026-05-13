@@ -1,14 +1,16 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #fbf7ed;
+    background-color: #ffecdb;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     color: #333;
 }
 
 hr {
     width: 100%;
-    color: #2a271e;
+    background-color: #bcad9c;
+    height: 2px;
+    border: none;
 }
 
 .app-container {
@@ -25,6 +27,7 @@ hr {
     border-radius: 20px;
     width: 70%;
     padding: 10px;
+    border: solid 2px #bcad9c;
 }
 
 .add-item-panel {
@@ -219,12 +222,46 @@ hr {
 }
 
 
+/* ── Tooltips ───────────────────────────────────────────── */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.75) translateY(6px);
+    transform-origin: bottom center;
+
+    background: #5c2f8e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 100;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) translateY(0);
+}
+
 .right-col {
     background: #fce6cd;
     border-radius: 20px;
     position: relative;
     width: 30%;
     padding: 10px;
+    border: solid 2px #bcad9c;
 }
 
 .summary-section {
