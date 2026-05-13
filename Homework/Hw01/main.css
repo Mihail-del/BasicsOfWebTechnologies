@@ -6,6 +6,68 @@ body {
     color: #333;
 }
 
+hr {
+    width: 100%;
+    color: #2a271e;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 20px;
+    width: 100%;
+}
+
+.left-col {
+    background: #fce6cd;
+    position: relative;
+    border-radius: 20px;
+    width: 70%;
+    padding: 10px;
+}
+
+.add-item-panel {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.add-item-panel input {
+    width: 65%;
+    height: 50px;
+    font-size: 22px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: #7c80eb 2px;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.add-item-panel button {
+    width: 35%;
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #7c80eb;
+    color: #fbf7ed;
+    font-size: 22px;
+    border: 2px solid #7c80eb;
+    border-left: none;
+    border-radius: 0px 10px 10px 0px;
+}
+
+.right-col {
+    background: #fce6cd;
+    border-radius: 20px;
+    position: relative;
+    width: 30%;
+    padding: 10px;
+}
+
 .badge {
     position: fixed;
     bottom: 0;
