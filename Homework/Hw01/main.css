@@ -354,7 +354,7 @@ hr {
     background-color: #4b0082;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 650px) {
     body {
         padding: 10px;
     }
@@ -407,5 +407,41 @@ hr {
     .badge {
         width: 120px;
         left: 10px;
+    }
+}
+
+@media print {
+    .badge {
+        background-color: white !important;
+        color: #ae01da !important;
+        border: 2px solid #ae01da !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .badge-title {
+        font-size: 0 !important;
+    }
+
+    .badge-title::after {
+        content: "Mykhailo Pulov";
+        font-size: 18px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .badge-author {
+        display: none !important;
+    }
+
+    .add-item-panel,
+    .item-controls,
+    .item-actions,
+    .btn-buy,
+    .btn-delete {
+        display: none !important;
     }
 }
