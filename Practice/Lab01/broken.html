@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<!-- A11Y: відсутній lang -->
-<html lang="uk">
-
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +12,6 @@
       padding: 1rem;
       line-height: 1.5;
     }
-
     .btn {
       background: #2050a0;
       color: white;
@@ -24,52 +21,27 @@
       cursor: pointer;
       margin: 4px 0;
     }
-
-    .status-error {
-      color: #d22;
-    }
-
-    .status-ok {
-      color: #2a8;
-    }
-
-    .avatar {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-    }
-
-    a {
-      color: #2050a0;
-    }
-
-    h2 {
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 6px;
-      margin-top: 2rem;
-    }
+    .status-error { color: #d22; }
+    .status-ok { color: #2a8; }
+    .avatar { width: 160px; height: 160px; border-radius: 50%; }
+    a { color: #2050a0; }
+    h2 { border-bottom: 1px solid #ddd; padding-bottom: 6px; margin-top: 2rem; }
   </style>
 </head>
-
 <body>
 
   <h1>Привіт, мене звати Олена</h1>
 
   <p>Я студентка 1-го курсу ІПЗ у НаУКМА. Тут — мої проєкти і контакти.</p>
 
-  <!-- A11Y: <img> без атрибута alt-->
-  <img class="avatar" src="me.jpg" alt="Фото Олени">
+  <img class="avatar" src="me.jpg">
 
-  <!-- A11Y: заголовки в неправильному порядку -->
-  <h2>Освіта</h2>
+  <h3>Освіта</h3>
 
-  <!-- A11Y: список через <br> замість <ul> -->
-  <ul>
-    <li>НаУКМА, бакалавр ІПЗ</li>
-    <li>Спеціалізація: веб-розробка</li>
-    <li>Рік випуску: 2027</li>
-    <li>Середній бал: 4.7</li>
-  </ul>
+  НаУКМА, бакалавр ІПЗ<br>
+  Спеціалізація: веб-розробка<br>
+  Рік випуску: 2027<br>
+  Середній бал: 4.7
 
   <h2>Проєкти</h2>
 
@@ -77,47 +49,34 @@
 
   <p>Платформа для замовлення домашньої випічки з доставкою.</p>
 
-  <p>Статус:
-    <span class="status-error">проблеми з оплатою</span>,
-    <span class="status-ok">доставка працює</span>
-  </p>
+  <p>Статус: <span class="status-error">проблеми з оплатою</span>, <span class="status-ok">доставка працює</span></p>
 
-  <!-- A11Y: список через <br> замість <ul> -->
-  <p>Технології:</p>
-  <ul>
-    <li>React</li>
-    <li>Node.js</li>
-    <li>TypeScript</li>
-    <li>PostgreSQL</li>
-  </ul>
+  <p>Технології:<br>
+  React<br>
+  Node.js<br>
+  TypeScript<br>
+  PostgreSQL</p>
 
   <h3>Календар університетських подій</h3>
 
   <p>Веб-застосунок для слідкування за подіями факультету. Інтегрований з Google Calendar.</p>
 
-  <!-- A11Y: <img> без атрибута alt-->
-  <img src="calendar-screenshot.png" alt="Скриншот календаря">
+  <img src="calendar-screenshot.png">
 
   <h2>Контакти</h2>
 
   <p>Зв'яжіться зі мною:</p>
 
-  <!-- A11Y: <a> без href і з onclick -->
-  <a href="mailto:olena@example.com">Написати email</a>
+  <a onclick="alert('email')">Написати email</a>
 
-  <!-- A11Y: <div onclick> як кнопка -->
-  <button type="button" class="btn" onclick="alert('Дзвонок')">Зателефонувати</button>
+  <div class="btn" onclick="alert('Дзвонок')">Зателефонувати</div>
 
   <h2>Підписка на новини</h2>
 
   <p>Залиште email і отримуйте щотижневі оновлення про мої проєкти:</p>
 
-  <!-- A11Y: <input> без <label> -->
-  <label for="subscribe-email">Ваш email</label>
-  <input type="email" id="subscribe-email" placeholder="example@email.com">
-
-  <!-- A11Y: <button> без атрибута type -->
-  <button type="submit">Підписатися</button>
+  <input type="email" placeholder="Ваш email">
+  <button>Підписатися</button>
 
   <h2>Соцмережі</h2>
 
@@ -133,5 +92,4 @@
   <p style="text-align: center; color: #888;">&copy; 2026 Олена Петренко</p>
 
 </body>
-
 </html>
