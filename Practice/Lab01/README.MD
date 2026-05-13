@@ -62,3 +62,7 @@
 **Проблема:** `<button>Підписатися</button>` - без `type`.  
 **Чому важливо:** За специфікацією HTML, `<button>` без `type` має неявний тип `submit`. Якщо кнопка опиниться всередині `<form>`, це призведе до небажаної відправки форми.  
 **Виправлення:** `<button type="submit">Підписатися</button>`
+
+## Accessibility audit results:
+- Before fix: 67%
+- After fix: 92%
