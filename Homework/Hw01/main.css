@@ -35,6 +35,7 @@ hr {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    margin-bottom: 30px;
 }
 
 .add-item-panel input {
@@ -43,8 +44,10 @@ hr {
     font-size: 22px;
     padding: 10px;
     box-sizing: border-box;
-    border: #7c80eb 2px;
+    border: 2px solid #6265bb;
+    border-right: none;
     border-radius: 10px 0px 0px 10px;
+    z-index: 2;
 }
 
 .add-item-panel button {
@@ -55,10 +58,158 @@ hr {
     background: #7c80eb;
     color: #fbf7ed;
     font-size: 22px;
-    border: 2px solid #7c80eb;
+    border: 2px solid #6265bb;
     border-left: none;
     border-radius: 0px 10px 10px 0px;
+    transition: 0.3s;
+    z-index: 1;
 }
+
+.add-item-panel button:hover {
+    box-shadow: 0px 0px 3px 3px #9ea0e7;
+}
+
+.add-item-panel button:active {
+    background-color: #6265bb;
+    box-shadow: 0px 0px 2px 2px #8284bf;
+}
+
+.item-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-row {
+    display: flex;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    transition: background 0.18s;
+}
+
+.item-row:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.item-name {
+    flex: 1 1 0;
+    min-width: 60px;
+    padding-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-controls,
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.item-controls {
+    margin-right: 12px;
+}
+
+.btn-minus,
+.btn-plus {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #f3f3f3;
+    font-weight: 900;
+    transition: 0.2s;
+    transform: translateY(-2px);
+}
+
+.btn-minus {
+    background: #d48080;
+    box-shadow: 0px 3px 0px 2px #7f4d4dd1;
+}
+
+.btn-minus:active {
+    box-shadow: 0px 1px 0px 1px #593636d1;
+    background: #cc7d7d;
+    transform: translateY(2px) scale(1.1);
+}
+
+.btn-plus {
+    background: #80d48f;
+    box-shadow: 0px 3px 0px 2px #599363a2
+}
+
+.btn-plus:active {
+    box-shadow: 0px 1px 0px 1px #446f4ba2;
+    background: #70b97d;
+    transform: translateY(2px) scale(1.1);
+}
+
+.item-count {
+    background: #eadfc9;
+    border-radius: 7px;
+    padding: 10px 15px;
+    border: solid #2a271e 1px;
+}
+
+
+.btn-buy {
+    background: #f1f0e4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #444;
+    cursor: pointer;
+    box-shadow: 0px 3px 0px 2px #9e9993;
+    transition: 0.2s;
+    transform: translateY(-3px);
+}
+
+.btn-buy:active {
+    box-shadow: 0px 1px 0px 1px #a19b95;
+    background: #e0dbd3;
+    transform: translateY(1px) scale(1.05);
+}
+
+.btn-delete {
+    background: #d48080;
+    box-shadow: 0px 3px 0px 2px #7f4d4dd1;
+    border-radius: 4px;
+    border: none;
+
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    transform: translateY(-3px);
+}
+
+.btn-delete:active {
+    box-shadow: 0px 1px 0px 1px #593636d1;
+    background: #cc7d7d;
+    transform: translateY(1px) scale(1.1);
+}
+
 
 .right-col {
     background: #fce6cd;
