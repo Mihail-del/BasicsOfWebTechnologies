@@ -115,7 +115,7 @@ hr {
 }
 
 .item-controls {
-    margin-right: 12px;
+    margin-right: 24px;
 }
 
 .btn-minus,
@@ -262,4 +262,59 @@ hr {
 .badge:hover {
     height: 100px;
     background-color: #4b0082;
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 10px;
+    }
+
+    .app-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .left-col,
+    .right-col {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .add-item-panel input {
+        width: 60%;
+        font-size: 18px;
+        height: 45px;
+    }
+
+    .add-item-panel button {
+        width: 40%;
+        font-size: 18px;
+        height: 45px;
+    }
+
+    .item-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        padding: 15px 10px;
+    }
+
+    .item-name {
+        flex: 1 1 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        padding-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .item-controls {
+        margin-right: 15px;
+    }
+
+    .badge {
+        width: 120px;
+        left: 10px;
+    }
 }
