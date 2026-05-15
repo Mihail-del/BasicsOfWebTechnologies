@@ -1,0 +1,447 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffecdb;
+    margin: 0;
+    padding: 10px;
+    color: #333;
+}
+
+hr {
+    width: 100%;
+    background-color: #bcad9c;
+    height: 2px;
+    border: none;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 20px;
+    width: 100%;
+}
+
+.left-col {
+    background: #fce6cd;
+    position: relative;
+    border-radius: 20px;
+    width: 70%;
+    padding: 10px;
+    border: solid 2px #bcad9c;
+}
+
+.add-item-panel {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.add-item-panel input {
+    width: 65%;
+    height: 50px;
+    font-size: 22px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid #6265bb;
+    border-right: none;
+    border-radius: 10px 0px 0px 10px;
+    z-index: 2;
+}
+
+.add-item-panel button {
+    width: 35%;
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #7c80eb;
+    color: #fbf7ed;
+    font-size: 22px;
+    border: 2px solid #6265bb;
+    border-left: none;
+    border-radius: 0px 10px 10px 0px;
+    transition: 0.3s;
+    z-index: 1;
+}
+
+.add-item-panel button:hover {
+    box-shadow: 0px 0px 3px 3px #9ea0e7;
+}
+
+.add-item-panel button:active {
+    background-color: #6265bb;
+    box-shadow: 0px 0px 2px 2px #8284bf;
+}
+
+.item-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-row {
+    display: flex;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    transition: background 0.18s;
+}
+
+.item-row:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.item-name {
+    flex: 1 1 0;
+    min-width: 60px;
+    padding-right: 12px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s ease;
+}
+
+.item-row:hover .item-name {
+    color: #000;
+}
+
+.item-controls,
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.item-controls {
+    margin-right: 24px;
+}
+
+.btn-minus,
+.btn-plus {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #f3f3f3;
+    font-weight: 900;
+    transition: 0.2s;
+    transform: translateY(-2px);
+}
+
+.btn-minus {
+    background: #d48080;
+    box-shadow: 0px 3px 0px 2px #7f4d4dd1;
+}
+
+.btn-minus:active {
+    box-shadow: 0px 1px 0px 1px #593636d1;
+    background: #cc7d7d;
+    transform: translateY(2px) scale(1.1);
+}
+
+.btn-plus {
+    background: #80d48f;
+    box-shadow: 0px 3px 0px 2px #599363a2
+}
+
+.btn-plus:active {
+    box-shadow: 0px 1px 0px 1px #446f4ba2;
+    background: #70b97d;
+    transform: translateY(2px) scale(1.1);
+}
+
+.item-count {
+    background: #eadfc9;
+    border-radius: 7px;
+    padding: 10px 15px;
+    border: solid #2a271e 1px;
+}
+
+
+.btn-buy {
+    background: #f1f0e4;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #444;
+    cursor: pointer;
+    box-shadow: 0px 3px 0px 2px #9e9993;
+    transition: 0.2s;
+    transform: translateY(-3px);
+}
+
+.btn-buy:active {
+    box-shadow: 0px 1px 0px 1px #a19b95;
+    background: #e0dbd3;
+    transform: translateY(1px) scale(1.05);
+}
+
+.btn-delete {
+    background: #d48080;
+    box-shadow: 0px 3px 0px 2px #7f4d4dd1;
+    border-radius: 4px;
+    border: none;
+
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    transform: translateY(-3px);
+}
+
+.btn-delete:active {
+    box-shadow: 0px 1px 0px 1px #593636d1;
+    background: #cc7d7d;
+    transform: translateY(1px) scale(1.1);
+}
+
+
+/* ── Tooltips ───────────────────────────────────────────── */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.75) translateY(6px);
+    transform-origin: bottom center;
+
+    background: #5c2f8e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 100;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1) translateY(0);
+}
+
+.right-col {
+    background: #fce6cd;
+    border-radius: 20px;
+    position: relative;
+    width: 30%;
+    padding: 10px;
+    border: solid 2px #bcad9c;
+}
+
+.summary-section {
+    padding: 4px 6px;
+}
+
+.summary-title {
+    margin: 6px 4px 10px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #2a271e;
+}
+
+.summary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 4px 12px;
+}
+
+.summary-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f1f0e4;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.summary-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #e07a30;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.badge {
+    position: fixed;
+    bottom: 0;
+    left: 20px;
+    width: 140px;
+    height: 45px;
+    background-color: #ae01da;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.badge-content {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+}
+
+.badge-title {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.badge-author {
+    height: 55px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 5px;
+}
+
+.badge:hover {
+    height: 100px;
+    background-color: #4b0082;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 10px;
+    }
+
+    .app-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .left-col,
+    .right-col {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .add-item-panel input {
+        width: 60%;
+        font-size: 18px;
+        height: 45px;
+    }
+
+    .add-item-panel button {
+        width: 40%;
+        font-size: 18px;
+        height: 45px;
+    }
+
+    .item-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        padding: 15px 10px;
+    }
+
+    .item-name {
+        flex: 1 1 100%;
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #2c3e50;
+        padding-right: 0;
+        margin-bottom: 8px;
+    }
+
+    .item-controls {
+        margin-right: 15px;
+    }
+
+    .badge {
+        width: 120px;
+        left: 10px;
+    }
+}
+
+@media print {
+    .badge {
+        background-color: white !important;
+        color: #ae01da !important;
+        border: 2px solid #ae01da !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .badge-title {
+        font-size: 0 !important;
+    }
+
+    .badge-title::after {
+        content: "Mykhailo Pulov";
+        font-size: 18px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .badge-author {
+        display: none !important;
+    }
+
+    .add-item-panel,
+    .item-controls,
+    .item-actions,
+    .btn-buy,
+    .btn-delete {
+        display: none !important;
+    }
+}
