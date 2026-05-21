@@ -1,7 +1,7 @@
 let items = [
-    { id: 1, name: 'Помідори', count: 1, isBought: false },
-    { id: 2, name: 'Печиво', count: 1, isBought: false },
-    { id: 3, name: 'Сир', count: 1, isBought: false }
+    { id: 1, name: 'Помідори', count: 1, isBought: false, isEditing: false },
+    { id: 2, name: 'Печиво', count: 1, isBought: false, isEditing: false },
+    { id: 3, name: 'Сир', count: 1, isBought: false, isEditing: false }
 ];
 
 const itemList = document.querySelector('.item-list');
@@ -16,8 +16,12 @@ function render() {
         li.className = 'item-row';
         li.dataset.id = item.id;
 
+        const nameContent = item.isEditing && !item.isBought
+            ? `<input type="text" class="input-edit" value="${item.name}">`
+            : `<span class="item-name ${item.isBought ? 'bought' : ''}">${item.name}</span>`;
+
         li.innerHTML = `
-            <span class="item-name ${item.isBought ? 'bought' : ''}">${item.name}</span>
+            ${nameContent}
             <div class="item-controls" ${item.isBought ? 'style="display: none;"' : ''}>
                 <button class="btn-minus" data-tooltip="Зменшити кількість" ${item.count === 1 ? 'disabled' : ''}>-</button>
                 <span class="item-count">${item.count}</span>
@@ -32,6 +36,12 @@ function render() {
         `;
 
         itemList.appendChild(li);
+
+        if (item.isEditing && !item.isBought) {
+            const editInput = li.querySelector('.input-edit');
+            editInput.focus();
+            editInput.selectionStart = editInput.selectionEnd = editInput.value.length;
+        }
 
         if (items.indexOf(item) !== items.length - 1) {
             const hr = document.createElement('hr');
@@ -48,7 +58,8 @@ function addItem() {
             id: Date.now(),
             name: name,
             count: 1,
-            isBought: false
+            isBought: false,
+            isEditing: false
         };
 
         items.push(newItem);
@@ -101,5 +112,38 @@ itemList.addEventListener('click', (event) => {
             item.isBought = !item.isBought;
             render();
         }
+    }
+
+    if (event.target.classList.contains('item-name')) {
+        const item = items.find(item => item.id === itemId);
+        if (item && !item.isBought) {
+            item.isEditing = true;
+            render();
+        }
+    }
+});
+
+function saveNewName(event) {
+    if (!event.target.classList.contains('input-edit')) return;
+
+    const itemRow = event.target.closest('.item-row');
+    const itemId = parseInt(itemRow.dataset.id);
+    const item = items.find(item => item.id === itemId);
+
+    if (item) {
+        const newName = event.target.value.trim();
+        if (newName !== '') {
+            item.name = newName;
+        }
+        item.isEditing = false;
+        render();
+    }
+}
+
+itemList.addEventListener('blur', saveNewName, true);
+
+itemList.addEventListener('keydown', (event) => {
+    if (event.target.classList.contains('input-edit') && event.key === 'Enter') {
+        saveNewName(event);
     }
 });
