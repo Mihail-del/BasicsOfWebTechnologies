@@ -11,6 +11,12 @@ const btnAdd = document.querySelector('.btn-add');
 function render() {
     itemList.innerHTML = '';
 
+    const summaryTagsLeft = document.querySelector('.summary-section:nth-of-type(1) .summary-tags');
+    const summaryTagsBought = document.querySelector('.summary-section:nth-of-type(2) .summary-tags');
+
+    if (summaryTagsLeft) summaryTagsLeft.innerHTML = '';
+    if (summaryTagsBought) summaryTagsBought.innerHTML = '';
+
     items.forEach((item) => {
         const li = document.createElement('li');
         li.className = 'item-row';
@@ -46,6 +52,17 @@ function render() {
         if (items.indexOf(item) !== items.length - 1) {
             const hr = document.createElement('hr');
             itemList.appendChild(hr);
+        }
+    });
+
+    items.forEach((item) => {
+        const tag = document.createElement('span');
+        tag.className = 'summary-tag';
+        tag.innerHTML = `${item.name} <span class="summary-badge">${item.count}</span>`;
+        if (item.isBought) {
+            if (summaryTagsBought) summaryTagsBought.appendChild(tag);
+        } else {
+            if (summaryTagsLeft) summaryTagsLeft.appendChild(tag);
         }
     });
 }
