@@ -36,3 +36,32 @@ function render() {
         }
     });
 }
+
+function addItem() {
+    const name = inputAdd.value.trim();
+
+    if (name !== '') {
+        const newItem = {
+            id: Date.now(),
+            name: name,
+            count: 1,
+            isBought: false
+        };
+
+        items.push(newItem);
+
+        render();
+
+        inputAdd.value = '';
+        inputAdd.focus();
+    }
+}
+
+btnAdd.addEventListener('click', addItem);
+inputAdd.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        addItem();
+    }
+});
+
+render();
