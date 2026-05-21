@@ -66,3 +66,30 @@ inputAdd.addEventListener('keydown', (event) => {
 });
 
 render();
+
+itemList.addEventListener('click', (event) => {
+    const itemRow = event.target.closest('.item-row');
+    if (!itemRow) return;
+
+    const itemId = parseInt(itemRow.dataset.id);
+    if (event.target.classList.contains('btn-delete')) {
+        items = items.filter(item => item.id !== itemId);
+        render();
+    }
+
+    if (event.target.classList.contains('btn-plus')) {
+        const item = items.find(item => item.id === itemId);
+        if (item) {
+            item.count++;
+            render();
+        }
+    }
+
+    if (event.target.classList.contains('btn-minus')) {
+        const item = items.find(item => item.id === itemId);
+        if (item && item.count > 1) {
+            item.count--;
+            render();
+        }
+    }
+});
