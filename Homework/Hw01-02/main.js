@@ -17,15 +17,17 @@ function render() {
         li.dataset.id = item.id;
 
         li.innerHTML = `
-            <span class="item-name">${item.name}</span>
-            <div class="item-controls">
-                <button class="btn-minus" data-tooltip="Зменшити кількість" ${item.count === 1 ? 'disabled' : ''}> -</button >
+            <span class="item-name ${item.isBought ? 'bought' : ''}">${item.name}</span>
+            <div class="item-controls" ${item.isBought ? 'style="display: none;"' : ''}>
+                <button class="btn-minus" data-tooltip="Зменшити кількість" ${item.count === 1 ? 'disabled' : ''}>-</button>
                 <span class="item-count">${item.count}</span>
                 <button class="btn-plus" data-tooltip="Збільшити кількість">+</button>
-            </div >
+            </div>
             <div class="item-actions">
-                <button class="btn-buy" data-tooltip="Відмітити як куплене">Куплено</button>
-                <button class="btn-delete" data-tooltip="Видалити товар">✖</button>
+                <button class="btn-buy" data-tooltip="${item.isBought ? 'Відмітити як не куплене' : 'Відмітити як куплене'}">
+                    ${item.isBought ? 'Зробити не купленим' : 'Куплено'}
+                </button>
+                <button class="btn-delete" data-tooltip="Видалити товар" ${item.isBought ? 'style="display: none;"' : ''}>✖</button>
             </div>
         `;
 
@@ -89,6 +91,14 @@ itemList.addEventListener('click', (event) => {
         const item = items.find(item => item.id === itemId);
         if (item && item.count > 1) {
             item.count--;
+            render();
+        }
+    }
+
+    if (event.target.classList.contains('btn-buy')) {
+        const item = items.find(item => item.id === itemId);
+        if (item) {
+            item.isBought = !item.isBought;
             render();
         }
     }
