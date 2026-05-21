@@ -1,8 +1,12 @@
-let items = [
+const savedItems = localStorage.getItem('shopping-list');
+
+let items = savedItems ? JSON.parse(savedItems) : [
     { id: 1, name: 'Помідори', count: 1, isBought: false, isEditing: false },
     { id: 2, name: 'Печиво', count: 1, isBought: false, isEditing: false },
     { id: 3, name: 'Сир', count: 1, isBought: false, isEditing: false }
 ];
+
+items.forEach(item => item.isEditing = false);
 
 const itemList = document.querySelector('.item-list');
 const inputAdd = document.querySelector('#input-add');
@@ -54,6 +58,8 @@ function render() {
             itemList.appendChild(hr);
         }
     });
+
+    localStorage.setItem('shopping-list', JSON.stringify(items));
 
     items.forEach((item) => {
         const tag = document.createElement('span');
