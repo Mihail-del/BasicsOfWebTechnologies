@@ -14,14 +14,15 @@ function render() {
     items.forEach((item) => {
         const li = document.createElement('li');
         li.className = 'item-row';
+        li.dataset.id = item.id;
 
         li.innerHTML = `
             <span class="item-name">${item.name}</span>
             <div class="item-controls">
-                <button class="btn-minus" data-tooltip="Зменшити кількість">-</button>
+                <button class="btn-minus" data-tooltip="Зменшити кількість" ${item.count === 1 ? 'disabled' : ''}> -</button >
                 <span class="item-count">${item.count}</span>
                 <button class="btn-plus" data-tooltip="Збільшити кількість">+</button>
-            </div>
+            </div >
             <div class="item-actions">
                 <button class="btn-buy" data-tooltip="Відмітити як куплене">Куплено</button>
                 <button class="btn-delete" data-tooltip="Видалити товар">✖</button>
