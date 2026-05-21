@@ -156,6 +156,13 @@ hr {
     transform: translateY(2px) scale(1.1);
 }
 
+.btn-minus:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    pointer-events: none;
+}
+
 .btn-plus {
     background: #80d48f;
     box-shadow: 0px 3px 0px 2px #599363a2
