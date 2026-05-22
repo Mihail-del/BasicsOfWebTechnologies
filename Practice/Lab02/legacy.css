@@ -9,7 +9,7 @@
   4. Перевірити, що нічого не зламалось у світлій темі.
 */
 
-root {
+:root {
   /* brand */
   --color-primary:        #2050a0;
   --color-primary-dark:   #173e7c;
@@ -54,24 +54,25 @@ root {
   --font-size-2xl:  28px;
   --font-size-3xl:  36px;
 }
-
+ 
 [data-theme="dark"] {
-  --color-primary:        #4d7fce;
-  --color-primary-dark:   #6b96d8;
-  --color-primary-border: #3a5f9f;
+  --color-primary:        #5b9fff;
+  --color-primary-dark:   #7baffe;
+  --color-primary-border: #3d6fb5;
  
-  --color-text:           #e8e8e8;
-  --color-text-muted:     #a0a0a0;
-  --color-text-inverse:   #1a1a1a;
+  --color-text:           #f0f0f0;
+  --color-text-muted:     #b0b0b0;
+  --color-text-inverse:   #0f0f0f;
  
-  --color-bg:             #121212;
-  --color-bg-surface:     #1e1e1e;
-  --color-bg-footer:      #0a0a0a;
+  --color-bg:             #0d1117;
+  --color-bg-surface:     #161b22;
+  --color-bg-footer:      #010409;
  
-  --color-accent:         #ffcc44;
+  --color-accent:         #ffd93d;
  
-  --color-border:         #333333;
+  --color-border:         #30363d;
 }
+ 
 
 
 * {
@@ -129,7 +130,7 @@ body {
 .hero p {
   font-size: var(--font-size-md);
   max-width: 600px;
-  margin: 0 auto var(--space-xg);
+  margin: 0 auto var(--space-xl);
   color: var(--color-text-muted);
 }
 
@@ -157,7 +158,7 @@ body {
 .features h2 {
   text-align: center;
   font-size: var(--font-size-2xl);
-  margin: 0 0 var(--space-x1);
+  margin: 0 0 var(--space-xl);
   color: var(--color-primary);
 }
 
@@ -230,7 +231,7 @@ body {
 .contact-form h2 {
   margin: 0 0 var(--space-lg);
   color: var(--color-primary);
-  font-size: var(--font-size-x1);
+  font-size: var(--font-size-xl);
 }
 
 .contact-form label {
@@ -246,7 +247,7 @@ body {
   width: 100%;
   padding: 10px var(--space-sm);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   font-size: var(--font-size-xs);
   background: var(--color-bg);
   color: var(--color-text);
@@ -278,13 +279,13 @@ body {
 .site-footer {
   background: var(--color-bg-footer);
   color: #cccccc;
-  padding: var(--space-x1);
+  padding: var(--space-xl);
   text-align: center;
   font-size: var(--font-size-xs);
 }
 
 .site-footer a {
-  color: var(--color-text-inverse);
+  color: var(--color-text-muted);
   text-decoration: none;
   margin: 0 8px;
 }
