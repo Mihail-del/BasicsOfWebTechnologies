@@ -2,8 +2,6 @@
 // Завдання 4 — Валідатор паролів
 // ============================================================
 
-const WEAK_PASSWORDS = ["password", "12345678", "qwerty", "admin"];
-
 /**
  * Перевіряє пароль за 7 правилами:
  *
@@ -20,24 +18,33 @@ const WEAK_PASSWORDS = ["password", "12345678", "qwerty", "admin"];
  *
  * Якщо порушено кілька правил — у errors мають бути ВСІ повідомлення.
  */
-function validatePassword(password) {
-  // TODO
+
+const WEAK_PASSWORDS = ["password", "12345678", "qwerty", "admin"];
+
+function hasUpperCase(password) {
+  return /[A-Z]/.test(password);
 }
 
-// ============================================================
-// Тестові кейси
-// ============================================================
-// console.log(validatePassword("Abc1!def"));
-// // { valid: true, errors: [] }
-//
-// console.log(validatePassword("abc"));
-// // { valid: false, errors: ["Довжина < 8", "Немає великих літер", "Немає цифр", "Немає спецсимволів"] }
-//
-// console.log(validatePassword("PASSWORD123!"));
-// // { valid: false, errors: ["Немає малих літер", "Це слабкий пароль"] }
-//
-// console.log(validatePassword("MyPass 1!"));
-// // { valid: false, errors: ["Не повинен містити пробіли"] }
-//
-// console.log(validatePassword(""));
-// // { valid: false, errors: ["Довжина < 8", "Немає великих літер", ...] }
+function hasLowerCase(password) {
+  return /[a-z]/.test(password);
+}
+
+function hasDigit(password) {
+  return /[0-9]/.test(password);
+}
+
+function hasSpecialChar(password) {
+  return /[!@#$%^&*]/.test(password);
+}
+
+function hasSpaces(password) {
+  return /\s/.test(password);
+}
+
+function isWeakPassword(password) {
+  return WEAK_PASSWORDS.includes(password.toLowerCase());
+}
+
+function validatePassword(password) {
+
+}
