@@ -6,7 +6,7 @@
   
   /* Soft Pantone Pastels */
   --pastel-lavender: #c7b3e5;
-  --pastel-pink: #ebd4e8;
+  --pastel-pink: #eca3ab;
   --pastel-blue: #a8d8ea;
   --pastel-green: #b5e7a0;
   --pastel-peach: #f7d9c4;
@@ -85,6 +85,16 @@ input[type="text"]:focus {
   transform: translateY(-2px);
 }
 
+input[type="text"].valid {
+  border-color: var(--pastel-green);
+  background: rgba(181, 231, 160, 0.08);
+}
+
+input[type="text"].invalid {
+  border-color: var(--pastel-pink);
+  background: rgba(222, 42, 96, 0.136);
+}
+
 button {
   width: 100%;
   padding: 14px 24px;
@@ -111,7 +121,7 @@ button:active {
 
 #output {
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--pastel-pink);
+  border: 1px solid var(--pastel-lavender);
   border-radius: var(--border-radius);
   padding: 24px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -143,15 +153,18 @@ button:active {
 #output li {
   padding: 10px 12px;
   margin-bottom: 8px;
-  background: rgba(181, 231, 160, 0.08);
-  border-left: 3px solid var(--pastel-green);
+  background: rgba(235, 212, 232, 0.1);
+  border-left: 3px solid var(--pastel-pink);
   border-radius: 6px;
-  color: var(--text-primary);
+  color: var(--pastel-pink);
   transition: var(--transition);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 #output li:hover {
-  background: rgba(235, 212, 232, 0.1);
+  background: rgba(235, 212, 232, 0.2);
   border-left-color: var(--pastel-pink);
   transform: translateX(4px);
 }

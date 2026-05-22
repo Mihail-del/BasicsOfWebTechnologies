@@ -64,9 +64,17 @@ const output = document.getElementById("output");
 validateButton.addEventListener("click", () => {
   const password = passwordInput.value;
   const result = validatePassword(password);
+  
+  // Update input border color based on validation
+  if (result.valid) {
+    passwordInput.classList.remove("invalid");
+    passwordInput.classList.add("valid");
+  } else {
+    passwordInput.classList.remove("valid");
+    passwordInput.classList.add("invalid");
+  }
+  
   output.innerHTML = `
-    <p>Valid: ${result.valid}</p>
-    <p>Errors:</p>
-    <ul>${result.errors.map(e => `<li>${e}</li>`).join("")}</ul>
+    ${result.errors.length > 0 ? `<ul>${result.errors.map(e => `<li>${e}</li>`).join("")}</ul>` : ""}
   `;
 });
