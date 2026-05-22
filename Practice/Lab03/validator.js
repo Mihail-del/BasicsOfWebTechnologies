@@ -58,23 +58,27 @@ function validatePassword(password) {
   };
 }
 
-const passwordInput = document.getElementById("passwordInput");
-const validateButton = document.getElementById("validateButton");
-const output = document.getElementById("output");
-validateButton.addEventListener("click", () => {
-  const password = passwordInput.value;
-  const result = validatePassword(password);
-  
-  // Update input border color based on validation
-  if (result.valid) {
-    passwordInput.classList.remove("invalid");
-    passwordInput.classList.add("valid");
-  } else {
-    passwordInput.classList.remove("valid");
-    passwordInput.classList.add("invalid");
-  }
-  
-  output.innerHTML = `
-    ${result.errors.length > 0 ? `<ul>${result.errors.map(e => `<li>${e}</li>`).join("")}</ul>` : ""}
-  `;
-});
+//module.exports = { validatePassword };
+
+if (typeof document !== "undefined") {
+  const passwordInput = document.getElementById("passwordInput");
+  const validateButton = document.getElementById("validateButton");
+  const output = document.getElementById("output");
+  validateButton.addEventListener("click", () => {
+    const password = passwordInput.value;
+    const result = validatePassword(password);
+    
+    // Update input border color based on validation
+    if (result.valid) {
+      passwordInput.classList.remove("invalid");
+      passwordInput.classList.add("valid");
+    } else {
+      passwordInput.classList.remove("valid");
+      passwordInput.classList.add("invalid");
+    }
+    
+    output.innerHTML = `
+      ${result.errors.length > 0 ? `<ul>${result.errors.map(e => `<li>${e}</li>`).join("")}</ul>` : ""}
+    `;
+  });
+}
