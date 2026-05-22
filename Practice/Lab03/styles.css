@@ -129,8 +129,7 @@ button:active {
   line-height: 1.6;
   color: var(--text-primary);
   max-height: 400px;
-  overflow-y: auto;
-  min-height: 100px;
+  overflow: auto;
 }
 
 #output p {
@@ -142,7 +141,7 @@ button:active {
 #output p:first-child {
   color: var(--text-primary);
   font-size: 1.1rem;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 #output ul {
@@ -167,25 +166,6 @@ button:active {
   background: rgba(235, 212, 232, 0.2);
   border-left-color: var(--pastel-pink);
   transform: translateX(4px);
-}
-
-/* Scrollbar Styling */
-#output::-webkit-scrollbar {
-  width: 8px;
-}
-
-#output::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-#output::-webkit-scrollbar-thumb {
-  background: var(--pastel-lavender);
-  border-radius: 10px;
-}
-
-#output::-webkit-scrollbar-thumb:hover {
-  background: var(--pastel-blue);
 }
 
 /* Responsive Design */
