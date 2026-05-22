@@ -81,129 +81,129 @@ root {
 body {
   margin: 0;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
+  font-size: var(--font-size-sm);
   line-height: 1.6;
-  color: #1a1a1a;
-  background: #ffffff;
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
 /* === Header === */
 .site-header {
-  background: #2050a0;
-  color: #ffffff;
-  padding: 16px 32px;
-  border-bottom: 1px solid #1a3f80;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--space-md) var(--space-xl);
+  border-bottom: 1px solid var(--color-primary-border);
 }
 
 .site-header h1 {
   margin: 0;
-  font-size: 20px;
-  color: #ffffff;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-inverse);
 }
 
 .site-header nav a {
-  color: #ffffff;
+  color: var(--color-text-inverse);
   text-decoration: none;
-  margin-left: 16px;
-  font-size: 14px;
+  margin-left: var(--space-md);
+  font-size: var(--font-size-xs);
 }
 
 .site-header nav a:hover {
-  color: #ffcc44;
+  color: var(--color-accent);
 }
 
 /* === Hero === */
 .hero {
-  background: #f4f6f8;
-  padding: 64px 32px;
+  background: var(--color-bg-surface);
+  padding: var(--space-2xl) var(--space-xl);
   text-align: center;
-  color: #1a1a1a;
+  color: var(--color-text);
 }
 
 .hero h2 {
-  font-size: 36px;
-  margin: 0 0 16px;
-  color: #2050a0;
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--space-lg);
+  color: var(--color-primary);
 }
 
 .hero p {
-  font-size: 18px;
+  font-size: var(--font-size-md);
   max-width: 600px;
-  margin: 0 auto 32px;
-  color: #555555;
+  margin: 0 auto var(--space-xg);
+  color: var(--color-text-muted);
 }
 
 .hero .cta {
   display: inline-block;
-  padding: 12px 24px;
-  background: #2050a0;
-  color: #ffffff;
-  border-radius: 6px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 600;
-  font-size: 16px;
+  font-size: var(--font-size-sm);
 }
 
 .hero .cta:hover {
-  background: #173e7c;
+  background: var(--color-primary-dark);
 }
 
 /* === Features === */
 .features {
-  padding: 48px 32px;
-  background: #ffffff;
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--color-bg);
 }
 
 .features h2 {
   text-align: center;
-  font-size: 28px;
-  margin: 0 0 32px;
-  color: #2050a0;
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--space-x1);
+  color: var(--color-primary);
 }
 
 .features .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: var(--space-lg);
   max-width: 960px;
   margin: 0 auto;
 }
 
 .feature-card {
-  background: #ffffff;
-  border: 1px solid #e1e4e8;
-  border-radius: 8px;
-  padding: 24px;
-  color: #1a1a1a;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  color: var(--color-text);
 }
 
 .feature-card h3 {
-  margin: 0 0 12px;
-  color: #2050a0;
-  font-size: 18px;
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+  font-size: var(--font-size-md);
 }
 
 .feature-card p {
   margin: 0;
-  color: #555555;
-  font-size: 14px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
 }
 
 /* === Alert === */
 .alert {
-  padding: 12px 16px;
+  padding: var(--space-sm) var(--space-md);
   background: #fff7e6;
   color: #b85c00;
   border-left: 4px solid #b85c00;
-  border-radius: 4px;
-  margin: 16px 0;
-  font-size: 14px;
+  border-radius: var(--radius-sm);
+  margin: var(--space-md) 0;
+  font-size: var(--font-size-xs);
 }
 
 .alert-info {
   background: #e8f0fe;
-  color: #2050a0;
-  border-left-color: #2050a0;
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
 }
 
 .alert-success {
@@ -212,77 +212,83 @@ body {
   border-left-color: #2a8a4a;
 }
 
+[data-theme="dark"] .alert-success {
+  background: #0d2a15;
+  color: #4dba6a;
+  border-left-color: #4dba6a;
+}
+
 /* === Form === */
 .contact-form {
   max-width: 480px;
-  margin: 48px auto;
-  padding: 32px;
-  background: #f4f6f8;
-  border-radius: 8px;
+  margin: var(--space-2xl) auto;
+  padding: var(--space-xl);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
 }
 
 .contact-form h2 {
-  margin: 0 0 24px;
-  color: #2050a0;
-  font-size: 24px;
+  margin: 0 0 var(--space-lg);
+  color: var(--color-primary);
+  font-size: var(--font-size-x1);
 }
 
 .contact-form label {
   display: block;
-  margin-bottom: 4px;
-  color: #1a1a1a;
-  font-size: 14px;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
   font-weight: 600;
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #e1e4e8;
+  padding: 10px var(--space-sm);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
-  font-size: 14px;
-  background: #ffffff;
-  color: #1a1a1a;
-  margin-bottom: 16px;
+  font-size: var(--font-size-xs);
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  outline: 2px solid #2050a0;
+  outline: 2px solid var(--color-primary);
   outline-offset: 1px;
 }
 
 .contact-form button {
-  background: #2050a0;
-  color: #ffffff;
-  padding: 12px 24px;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--space-sm) var(--space-lg);
   border: none;
-  border-radius: 6px;
-  font-size: 16px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
   font-weight: 600;
   cursor: pointer;
 }
 
 .contact-form button:hover {
-  background: #173e7c;
+  background: var(--color-primary-dark);
 }
 
 /* === Footer === */
 .site-footer {
-  background: #1a1a1a;
+  background: var(--color-bg-footer);
   color: #cccccc;
-  padding: 32px;
+  padding: var(--space-x1);
   text-align: center;
-  font-size: 14px;
+  font-size: var(--font-size-xs);
 }
 
 .site-footer a {
-  color: #ffffff;
+  color: var(--color-text-inverse);
   text-decoration: none;
   margin: 0 8px;
 }
 
 .site-footer a:hover {
-  color: #ffcc44;
+  color: var(--color-accent) ;
 }
