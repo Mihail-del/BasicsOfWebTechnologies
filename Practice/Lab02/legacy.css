@@ -1,0 +1,295 @@
+/*
+  legacy.css — стилі лендингу з hardcoded значеннями.
+  Завдання 3: рефакторинг через CSS-змінні + темна тема.
+
+  Студент має:
+  1. Виділити дизайн-токени в :root (≥ 10 змінних).
+  2. Замінити hardcoded значення на var(--name).
+  3. Додати [data-theme="dark"] перевизначення для темної теми.
+  4. Перевірити, що нічого не зламалось у світлій темі.
+*/
+
+:root {
+  /* brand */
+  --color-primary:        #2050a0;
+  --color-primary-dark:   #173e7c;
+  --color-primary-border: #1a3f80;
+ 
+  /* text */
+  --color-text:           #1a1a1a;
+  --color-text-muted:     #555555;
+  --color-text-inverse:   #ffffff;
+ 
+  /* background */
+  --color-bg:             #ffffff;
+  --color-bg-surface:     #f4f6f8;
+  --color-bg-footer:      #1a1a1a;
+ 
+  /* accent */
+  --color-accent:         #ffcc44;
+ 
+  /* border */
+  --color-border:         #e1e4e8;
+ 
+  /* space */
+  --space-xs:  4px;
+  --space-sm:  12px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+ 
+  /* radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+ 
+  /* fonts */
+  --font-size-xs:   14px;
+  --font-size-sm:   16px;
+  --font-size-md:   18px;
+  --font-size-lg:   20px;
+  --font-size-xl:   24px;
+  --font-size-2xl:  28px;
+  --font-size-3xl:  36px;
+}
+ 
+[data-theme="dark"] {
+  --color-primary:        #5b9fff;
+  --color-primary-dark:   #7baffe;
+  --color-primary-border: #3d6fb5;
+ 
+  --color-text:           #f0f0f0;
+  --color-text-muted:     #b0b0b0;
+  --color-text-inverse:   #0f0f0f;
+ 
+  --color-bg:             #0d1117;
+  --color-bg-surface:     #161b22;
+  --color-bg-footer:      #010409;
+ 
+  --color-accent:         #ffd93d;
+ 
+  --color-border:         #30363d;
+}
+ 
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* === Header === */
+.site-header {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--space-md) var(--space-xl);
+  border-bottom: 1px solid var(--color-primary-border);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-inverse);
+}
+
+.site-header nav a {
+  color: var(--color-text-inverse);
+  text-decoration: none;
+  margin-left: var(--space-md);
+  font-size: var(--font-size-xs);
+}
+
+.site-header nav a:hover {
+  color: var(--color-accent);
+}
+
+/* === Hero === */
+.hero {
+  background: var(--color-bg-surface);
+  padding: var(--space-2xl) var(--space-xl);
+  text-align: center;
+  color: var(--color-text);
+}
+
+.hero h2 {
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--space-lg);
+  color: var(--color-primary);
+}
+
+.hero p {
+  font-size: var(--font-size-md);
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
+  color: var(--color-text-muted);
+}
+
+.hero .cta {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.hero .cta:hover {
+  background: var(--color-primary-dark);
+}
+
+/* === Features === */
+.features {
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--color-bg);
+}
+
+.features h2 {
+  text-align: center;
+  font-size: var(--font-size-2xl);
+  margin: 0 0 var(--space-xl);
+  color: var(--color-primary);
+}
+
+.features .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  color: var(--color-text);
+}
+
+.feature-card h3 {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary);
+  font-size: var(--font-size-md);
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* === Alert === */
+.alert {
+  padding: var(--space-sm) var(--space-md);
+  background: #fff7e6;
+  color: #b85c00;
+  border-left: 4px solid #b85c00;
+  border-radius: var(--radius-sm);
+  margin: var(--space-md) 0;
+  font-size: var(--font-size-xs);
+}
+
+.alert-info {
+  background: #e8f0fe;
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+}
+
+.alert-success {
+  background: #e6f7eb;
+  color: #2a8a4a;
+  border-left-color: #2a8a4a;
+}
+
+[data-theme="dark"] .alert-success {
+  background: #0d2a15;
+  color: #4dba6a;
+  border-left-color: #4dba6a;
+}
+
+/* === Form === */
+.contact-form {
+  max-width: 480px;
+  margin: var(--space-2xl) auto;
+  padding: var(--space-xl);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+}
+
+.contact-form h2 {
+  margin: 0 0 var(--space-lg);
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.contact-form button {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: var(--space-sm) var(--space-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: var(--color-primary-dark);
+}
+
+/* === Footer === */
+.site-footer {
+  background: var(--color-bg-footer);
+  color: #cccccc;
+  padding: var(--space-xl);
+  text-align: center;
+  font-size: var(--font-size-xs);
+}
+
+.site-footer a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+.site-footer a:hover {
+  color: var(--color-accent) ;
+}

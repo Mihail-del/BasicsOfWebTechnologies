@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Курс «Веб з нуля» — лендинг</title>
+  <link rel="stylesheet" href="legacy.css">
+</head>
+<body data-theme="light">
+
+  <!-- HTML, який використовує legacy.css.
+       Потрібен лише як референс — щоб бачити, як виглядає сторінка
+       до і після рефакторингу. Студент змінює тільки legacy.css. -->
+
+  <header class="site-header">
+    <h1>Веб з нуля</h1>
+    <nav>
+      <a href="#hero">Про курс</a>
+      <a href="#features">Що вивчите</a>
+      <a href="#contact">Контакти</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero">
+    <h2>Стати веб-розробником за 6 тижнів</h2>
+    <p>Інтенсивний онлайн-курс з нуля до першого pet-проєкту. Без води, без зайвої теорії — тільки те, що потрібно для першої роботи.</p>
+    <a href="#contact" class="cta">Записатися →</a>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Що ви опануєте</h2>
+    <div class="grid">
+      <div class="feature-card">
+        <h3>HTML і CSS</h3>
+        <p>Семантична розмітка, адаптивна верстка, доступність для всіх користувачів.</p>
+      </div>
+      <div class="feature-card">
+        <h3>JavaScript</h3>
+        <p>Синтаксис, DOM, події, асинхронні запити. Перший інтерактивний застосунок.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Сучасні інструменти</h3>
+        <p>Git, GitHub, DevTools, базовий TypeScript, деплой на Vercel.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-form" id="contact">
+    <h2>Записатися на курс</h2>
+    <p class="alert alert-info">Заповніть форму, і ми звʼяжемось протягом доби.</p>
+
+    <form>
+      <label for="name">Ваше імʼя</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Електронна пошта</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Коментар (необовʼязково)</label>
+      <textarea id="message" name="message" rows="4"></textarea>
+
+      <button type="submit">Надіслати</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <p>© 2026 Веб з нуля</p>
+    <p>
+      <a href="#">Telegram</a> ·
+      <a href="#">YouTube</a> ·
+      <a href="#">GitHub</a>
+    </p>
+  </footer>
+
+</body>
+</html>
