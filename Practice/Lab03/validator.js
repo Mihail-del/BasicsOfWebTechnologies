@@ -21,55 +21,41 @@
 
 const WEAK_PASSWORDS = ["password", "12345678", "qwerty", "admin"];
 
-function hasUpperCase(password) {
-  return /[A-Z]/.test(password);
-}
-
-function hasLowerCase(password) {
-  return /[a-z]/.test(password);
-}
-
-function hasDigit(password) {
-  return /[0-9]/.test(password);
-}
-
-function hasSpecialChar(password) {
-  return /[!@#$%^&*]/.test(password);
-}
-
-function hasSpaces(password) {
-  return /\s/.test(password);
-}
-
-function isWeakPassword(password) {
-  return WEAK_PASSWORDS.includes(password.toLowerCase());
-}
-
 function validatePassword(password) {
   const errors = [];
 
   if (password.length < 8) {
     errors.push("Password must be at least 8 characters long.");
   }
-  if (!hasUpperCase(password)) {
+
+  if (!/[A-Z]/.test(password)) {
     errors.push("Password must contain at least one uppercase letter (A-Z).");
   }
-  if (!hasLowerCase(password)) {
+
+  if (!/[a-z]/.test(password)) {
     errors.push("Password must contain at least one lowercase letter (a-z).");
   }
-  if (!hasDigit(password)) {
+
+  if (!/[0-9]/.test(password)) {
     errors.push("Password must contain at least one digit (0-9).");
   }
-  if (!hasSpecialChar(password)) {
+
+  if (!/[!@#$%^&*]/.test(password)) {
     errors.push("Password must contain at least one special character (!@#$%^&*).");
   }
-  if (hasSpaces(password)) {
+
+  if (/\s/.test(password)) {
     errors.push("Password must not contain spaces.");
   }
-  if (isWeakPassword(password)) {
-    errors.push("Password is too weak and should not be used.");
+
+  if (WEAK_PASSWORDS.includes(password.toLowerCase())) {
+    errors.push("This is a weak password.");
   }
-  return { valid: errors.length === 0, errors };
+
+  return {
+    valid: errors.length === 0,
+    errors,
+  };
 }
 
 module.exports = { validatePassword };
