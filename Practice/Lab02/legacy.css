@@ -9,6 +9,71 @@
   4. Перевірити, що нічого не зламалось у світлій темі.
 */
 
+root {
+  /* brand */
+  --color-primary:        #2050a0;
+  --color-primary-dark:   #173e7c;
+  --color-primary-border: #1a3f80;
+ 
+  /* text */
+  --color-text:           #1a1a1a;
+  --color-text-muted:     #555555;
+  --color-text-inverse:   #ffffff;
+ 
+  /* background */
+  --color-bg:             #ffffff;
+  --color-bg-surface:     #f4f6f8;
+  --color-bg-footer:      #1a1a1a;
+ 
+  /* accent */
+  --color-accent:         #ffcc44;
+ 
+  /* border */
+  --color-border:         #e1e4e8;
+ 
+  /* space */
+  --space-xs:  4px;
+  --space-sm:  12px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+ 
+  /* radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+ 
+  /* fonts */
+  --font-size-xs:   14px;
+  --font-size-sm:   16px;
+  --font-size-md:   18px;
+  --font-size-lg:   20px;
+  --font-size-xl:   24px;
+  --font-size-2xl:  28px;
+  --font-size-3xl:  36px;
+}
+
+[data-theme="dark"] {
+  --color-primary:        #4d7fce;
+  --color-primary-dark:   #6b96d8;
+  --color-primary-border: #3a5f9f;
+ 
+  --color-text:           #e8e8e8;
+  --color-text-muted:     #a0a0a0;
+  --color-text-inverse:   #1a1a1a;
+ 
+  --color-bg:             #121212;
+  --color-bg-surface:     #1e1e1e;
+  --color-bg-footer:      #0a0a0a;
+ 
+  --color-accent:         #ffcc44;
+ 
+  --color-border:         #333333;
+}
+
+
 * {
   box-sizing: border-box;
 }
