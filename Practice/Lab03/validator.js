@@ -48,7 +48,7 @@ function validatePassword(password) {
     errors.push("Password must not contain spaces.");
   }
 
-  if (WEAK_PASSWORDS.includes(password.toLowerCase())) {
+  if (WEAK_PASSWORDS.some(weak => password.toLowerCase().startsWith(weak))) {
     errors.push("This is a weak password.");
   }
 
