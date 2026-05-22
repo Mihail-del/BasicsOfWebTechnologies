@@ -58,4 +58,15 @@ function validatePassword(password) {
   };
 }
 
-module.exports = { validatePassword };
+const passwordInput = document.getElementById("passwordInput");
+const validateButton = document.getElementById("validateButton");
+const output = document.getElementById("output");
+validateButton.addEventListener("click", () => {
+  const password = passwordInput.value;
+  const result = validatePassword(password);
+  output.innerHTML = `
+    <p>Valid: ${result.valid}</p>
+    <p>Errors:</p>
+    <ul>${result.errors.map(e => `<li>${e}</li>`).join("")}</ul>
+  `;
+});
