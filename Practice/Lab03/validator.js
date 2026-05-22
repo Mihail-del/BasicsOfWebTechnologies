@@ -46,5 +46,30 @@ function isWeakPassword(password) {
 }
 
 function validatePassword(password) {
+  const errors = [];
 
+  if (password.length < 8) {
+    errors.push("Password must be at least 8 characters long.");
+  }
+  if (!hasUpperCase(password)) {
+    errors.push("Password must contain at least one uppercase letter (A-Z).");
+  }
+  if (!hasLowerCase(password)) {
+    errors.push("Password must contain at least one lowercase letter (a-z).");
+  }
+  if (!hasDigit(password)) {
+    errors.push("Password must contain at least one digit (0-9).");
+  }
+  if (!hasSpecialChar(password)) {
+    errors.push("Password must contain at least one special character (!@#$%^&*).");
+  }
+  if (hasSpaces(password)) {
+    errors.push("Password must not contain spaces.");
+  }
+  if (isWeakPassword(password)) {
+    errors.push("Password is too weak and should not be used.");
+  }
+  return { valid: errors.length === 0, errors };
 }
+
+module.exports = { validatePassword };
