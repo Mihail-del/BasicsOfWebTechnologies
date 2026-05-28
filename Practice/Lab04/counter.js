@@ -181,7 +181,17 @@ resetBtn.addEventListener("click", () => {
     updateDOM();
 });
 
+exportBtn.addEventListener("click", () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
 
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `counters-state-${Date.now()}.json`);
+
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+});
 
 loadState();
 updateDOM();
