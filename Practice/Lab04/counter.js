@@ -87,7 +87,7 @@ function updateDOM() {
         }
     });
 
-    let leaderText = "—";
+    let leaderText = "-";
     if (total > 0) {
         const formattedLeaders = leaders.map(l => l.charAt(0).toUpperCase() + l.slice(1));
         leaderText = formattedLeaders.join(", ");
@@ -167,7 +167,7 @@ undoBtn.addEventListener("click", () => {
 });
 
 resetBtn.addEventListener("click", () => {
-    if (!confirm("Скинути всі лічильники?")) return;
+    if (!confirm("Reset all timers?")) return;
 
     pushToUndoStack();
 
