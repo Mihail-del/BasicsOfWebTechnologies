@@ -23,7 +23,9 @@ const swiper = new Swiper('.mySwiper', {
 const currentEl = document.getElementById('slideCurrentNum');
 const totalEl = document.getElementById('slideTotalNum');
 
-const realTotal = swiper.slides.length - (swiper.loopedSlides || 0) * 2;
+const realTotal = [...swiper.slides].filter(
+    slide => !slide.classList.contains('swiper-slide-duplicate')
+).length;
 totalEl.textContent = realTotal > 0 ? realTotal : swiper.slides.length;
 
 function updateCounter() {
