@@ -1,17 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Найкрасивіші місця України</title>
 
-    <link rel="stylesheet" href="styles.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Raleway:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
+    <header class="gallery-header">
+        <p class="eyebrow">Галерея</p>
+        <h1>Найкрасивіші місця України</h1>
+        <p class="subtitle">Натхненна краєвидами рідної землі</p>
+    </header>
 
+    <div class="swiper-wrapper-outer">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <img class="slide-img"
+                        src="https://upload.wikimedia.org/wikipedia/commons/6/61/80-391-0151_Kyiv_St.Sophia%27s_Cathedral_RB_18_2_%28cropped%29.jpg"
+                        alt="Софія Київська" />
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <span class="slide-badge">Київ</span>
+                        <h2 class="slide-title">Собор Святої Софії</h2>
+                        <p class="slide-desc">Перлина давньоруської архітектури XI ст., внесена до списку ЮНЕСКО, -
+                            символ могутності Київської Русі та духовного серця України.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <img class="slide-img"
+                        src="https://lavra.ua/wp-content/uploads/2024/03/photo_2024-03-16_09-59-10-e1710586736540.jpg"
+                        alt="Києво-Печерська Лавра" />
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <span class="slide-badge">Київ</span>
+                        <h2 class="slide-title">Києво-Печерська Лавра</h2>
+                        <p class="slide-desc">Один із найвидатніших православних монастирів світу, заснований у 1051
+                            році, з унікальними підземними печерами та позолоченими куполами над Дніпром.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <img class="slide-img"
+                        src="https://skyta.com.ua/stuff/statica/450/ecooboi-gory-karpaty-10098-1547367477.jpg"
+                        alt="Карпати" />
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <span class="slide-badge">Карпати</span>
+                        <h2 class="slide-title">Українські Карпати</h2>
+                        <p class="slide-desc">Величні гори з вкритими ялицями хребтами, кришталевими потоками і
+                            гуцульськими традиціями - найбільший гірський масив України.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <img class="slide-img"
+                        src="https://upload.wikimedia.org/wikipedia/commons/d/df/73-250-0001_Khotyn_Fortress_RB_18.jpg"
+                        alt="Хотинська фортеця" />
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <span class="slide-badge">Хотин</span>
+                        <h2 class="slide-title">Хотинська фортеця</h2>
+                        <p class="slide-desc">Неприступна фортеця XIII–XVIII ст. на берегах Дністра, яка витримала
+                            десятки облог і залишається одним із найкраще збережених оборонних комплексів Європи.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="swiper-slide">
+                    <img class="slide-img"
+                        src="https://funtime.com.ua/u/i/gallery/2022/09/lastvchine-gnzdo-zamok-4-6320d1aa431d3.jpg"
+                        alt="Ластівчине гніздо" />
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <span class="slide-badge">Крим · Ялта</span>
+                        <h2 class="slide-title">Ластівчине гніздо</h2>
+                        <p class="slide-desc">Романтичний замок у неоготичному стилі, що завмер на краю 40-метрової
+                            скелі над Чорним морем, - найупізнаваніший символ кримського узбережжя.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="swiper-slide">
+                    <img class="slide-img"
+                        src="https://vidviday.ua/storage/uploads/editor/mZCiyrwBvBKMCg0vs69ChNFtLGKSMYpJmSscmyjV.jpg"
+                        alt="Тунель кохання" />
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <span class="slide-badge">Клевань · Рівненщина</span>
+                        <h2 class="slide-title">Тунель кохання</h2>
+                        <p class="slide-desc">Казкова алея довжиною понад 3 км, де щільне листя дерев утворює живий
+                            коридор над залізничною колією, - одне з найромантичніших місць країни.</p>
+                    </div>
+                </div>
+
+                <!-- Slide 7 -->
+                <div class="swiper-slide">
+                    <img class="slide-img"
+                        src="https://karpatium.com.ua/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcndQIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--e9d9004b033cc3473cf8d64ceb4dea85dca86e11/%D0%BA%D0%B0%D0%BC%D1%8F%D0%BD%D0%B5%D1%86%D1%8C-%D0%BF%D0%BE%D0%B4%D1%96%D0%BB%D1%8C%D1%81%D0%BA%D0%B0-%D1%84%D0%BE%D1%80%D1%82%D0%B5%D1%86%D1%8F.jpeg"
+                        alt="Кам'янець-Подільська фортеця" />
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <span class="slide-badge">Кам'янець-Подільський</span>
+                        <h2 class="slide-title">Кам'янецька фортеця</h2>
+                        <p class="slide-desc">Середньовічний замок на скелястому острові, оточеному петлею річки
+                            Смотрич, - один із семи чудес України та перлина Поділля.</p>
+                    </div>
+                </div>
+
+            </div><!-- /.swiper-wrapper -->
+
+            <!-- Arrows -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            <!-- Dots pagination -->
+            <div class="swiper-pagination"></div>
+        </div><!-- /.swiper -->
+
+        <!-- Counter (оновлюється через slideChange) -->
+        <div class="slide-counter">
+            <span class="current" id="slideCurrentNum">1</span>
+            <span class="sep"></span>
+            <span class="label">Слайд</span>
+            <span class="total" id="slideTotalNum">7</span>
+        </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 
