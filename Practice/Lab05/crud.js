@@ -74,6 +74,30 @@ async function createTodo(title) {
     return res.json();
 }
 
+async function updateTodo(id, completed) {
+    const res = await fetch(`${API}/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ completed }),
+    });
+    if (!res.ok) throw new Error(`PATCH failed: ${res.status}`);
+    return res.json();
+}
+
+async function handleToggle(id, checkbox, li) {
+    checkbox.disabled = true;
+    setStatus("Updating...");
+    try {
+        await updateTodo(id, checkbox.checked);
+        li.classList.toggle("completed", checkbox.checked);
+        setStatus("Updated");
+    } catch (err) {
+        checkbox.checked = !checkbox.checked;
+        setStatus(`Error: ${err.message}`, true);
+    } finally {
+        checkbox.disabled = false;
+    }
+}
 
 
 async function init() {
