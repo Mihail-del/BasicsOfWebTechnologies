@@ -84,6 +84,11 @@ async function updateTodo(id, completed) {
     return res.json();
 }
 
+async function deleteTodo(id) {
+    const res = await fetch(`${API}/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error(`DELETE failed: ${res.status}`);
+}
+
 async function handleToggle(id, checkbox, li) {
     checkbox.disabled = true;
     setStatus("Updating...");
@@ -99,6 +104,18 @@ async function handleToggle(id, checkbox, li) {
     }
 }
 
+async function handleDelete(id, li, btn) {
+    btn.disabled = true;
+    setStatus("Deleting...");
+    try {
+        await deleteTodo(id);
+        li.remove();
+        setStatus("Deleted");
+    } catch (err) {
+        setStatus(`Error: ${err.message}`, true);
+        btn.disabled = false;
+    }
+}
 
 async function init() {
     setStatus("Loading...");
