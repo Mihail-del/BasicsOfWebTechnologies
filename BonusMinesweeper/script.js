@@ -26,6 +26,8 @@ let gameState = {
     over: false,
 };
 
+let pivot = null;
+
 // =============================================
 // BOARD GENERATION
 // =============================================
@@ -126,7 +128,90 @@ function initGame(size, mineCount) {
         over: false,
     };
 
-    console.log(`Game initialised: ${size}×${size}, ${mineCount} mines`);
+    renderBoard();
+}
+
+// =============================================
+// WEBDATAROCKS INTEGRATION
+// =============================================
+
+/**
+ * Converts the 2D board into a flat JSON array for WebDataRocks.
+ * Row/col are zero-padded strings so WDR sorts them correctly
+ * @param {Array<Array<Object>>} board
+ * @returns {Array<Object>} flat array of cell records
+ */
+function boardToJSON(board) {
+    const data = [];
+    const pad = (n) => String(n).padStart(2, "0");
+
+    for (let r = 0; r < board.length; r++) {
+        for (let c = 0; c < board[r].length; c++) {
+            const cell = board[r][c];
+
+            let display;
+            if (cell.state === STATE.FLAG) display = "flag";
+            else if (cell.state === STATE.CLOSED) display = "closed";
+            else if (cell.state === STATE.MINE) display = "mine";
+            else display = String(cell.neighborCount);
+
+            data.push({
+                row: `R${pad(r)}`,
+                col: `C${pad(c)}`,
+                display,
+                rowIdx: r,
+                colIdx: c,
+            });
+        }
+    }
+
+    return data;
+}
+
+/**
+ * Builds the WDR report config.
+ * Grand totals and sorting are off - we just need a clean grid.
+ * @param {Array<Object>} jsonData - output of boardToJSON()
+ * @returns {Object} WDR report object
+ */
+function buildReport(jsonData) {
+    return {
+        dataSource: { data: jsonData },
+        slice: {
+            rows: [{ uniqueName: "row" }],
+            columns: [{ uniqueName: "col" }],
+            measures: [{ uniqueName: "display", aggregation: "first" }],
+        },
+        options: {
+            grid: {
+                showGrandTotals: "off",
+                showTotals: "off",
+                sorting: "off",
+                showFilter: false,
+            },
+            configuratorButton: false,
+        },
+    };
+}
+
+/**
+ * First call: creates the WDR pivot instance.
+ * Subsequent calls: updates data in-place via updateData()
+ * (faster than setReport - no full re-render).
+ */
+function renderBoard() {
+    const jsonData = boardToJSON(gameState.board);
+
+    if (!pivot) {
+        pivot = new WebDataRocks({
+            container: "#wdr-component",
+            toolbar: false,
+            height: 600,
+            report: buildReport(jsonData),
+        });
+    } else {
+        pivot.updateData({ data: jsonData });
+    }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
