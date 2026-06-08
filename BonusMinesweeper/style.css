@@ -190,3 +190,78 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 32px rgba(204, 120, 92, 0.06);
 }
+
+/* =============================================
+   CELL CUSTOMIZATION
+   ============================================= */
+
+.ms-cell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: var(--font-main);
+    cursor: pointer;
+    user-select: none;
+    border-radius: 3px;
+    transition: background 0.1s;
+}
+
+.ms-cell.closed {
+    background: var(--cell-bg);
+    color: transparent;
+}
+
+.ms-cell.closed:hover {
+    background: #3a2e1f;
+}
+
+.ms-cell.open {
+    background: var(--cell-open);
+    color: var(--muted);
+}
+
+.ms-cell.flag {
+    background: var(--cell-bg);
+    color: var(--accent);
+}
+
+.ms-cell.mine {
+    background: #4a1a1a;
+    color: #ff6b6b;
+}
+
+.ms-cell.n1 {
+    color: #6ab0f5;
+}
+
+.ms-cell.n2 {
+    color: #7ec87e;
+}
+
+.ms-cell.n3 {
+    color: #f5826a;
+}
+
+.ms-cell.n4 {
+    color: #9b7fe8;
+}
+
+.ms-cell.n5 {
+    color: #e87e7e;
+}
+
+.ms-cell.n6 {
+    color: #7ecfc8;
+}
+
+.ms-cell.n7 {
+    color: #d4b8a0;
+}
+
+.ms-cell.n8 {
+    color: var(--muted);
+}
