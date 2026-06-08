@@ -69,17 +69,6 @@ body {
     text-shadow: 0 0 8px rgba(232, 168, 124, 0.4);
 }
 
-/* Restart button */
-#restart-btn {
-    font-size: 1.8rem;
-    background: none;
-    border: 2px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 4px 12px;
-    transition: border-color 0.2s, transform 0.1s;
-}
-
 #restart-btn:hover {
     border-color: var(--accent);
     transform: scale(1.1);
