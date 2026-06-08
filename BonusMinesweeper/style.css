@@ -69,15 +69,6 @@ body {
     text-shadow: 0 0 8px rgba(232, 168, 124, 0.4);
 }
 
-#restart-btn:hover {
-    border-color: var(--accent);
-    transform: scale(1.1);
-}
-
-#restart-btn:active {
-    transform: scale(0.95);
-}
-
 /* =============================================
   MATERIAL ICONS
 =============================================*/
