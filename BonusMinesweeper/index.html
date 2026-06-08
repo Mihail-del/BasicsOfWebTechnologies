@@ -2,23 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Minesweeper</title>
 
     <link href="https://cdn.webdatarocks.com/latest/webdatarocks.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-    <!-- ========== WEBDATAROCKS PIVOT TABLE (game board) ========== -->
+    <!-- Scoreboard -->
+    <div id="scoreboard">
+        <div class="score-block">
+            <span class="material-icons score-label">bomb</span>
+            <span id="mine-count">0</span>
+        </div>
+
+        <button id="restart-btn" title="Restart">
+            <span class="material-icons">sentiment_satisfied</span>
+        </button>
+
+        <div class="score-block">
+            <span class="material-icons score-label">timer</span>
+            <span id="timer">0</span>
+        </div>
+    </div>
+
+    <!-- Difficulty buttons -->
+    <div id="difficulty">
+        <button class="diff-btn active" data-size="9" data-mines="10">Easy 9×9</button>
+        <button class="diff-btn" data-size="16" data-mines="40">Medium 16×16</button>
+        <button class="diff-btn" data-size="custom">Custom</button>
+    </div>
+
+    <!-- Custom difficulty inputs -->
+    <div id="custom-inputs" class="hidden">
+        <label>Size: <input type="number" id="custom-size" min="5" max="24" value="12" /></label>
+        <label>Mines: <input type="number" id="custom-mines" min="1" max="200" value="20" /></label>
+        <button id="custom-apply">Apply</button>
+    </div>
+
+    <!-- WebDataRocks game board -->
     <div id="wdr-component"></div>
 
     <!-- WebDataRocks scripts -->
     <script src="https://cdn.webdatarocks.com/latest/webdatarocks.toolbar.min.js"></script>
     <script src="https://cdn.webdatarocks.com/latest/webdatarocks.js"></script>
 
-    <script src="game.js"></script>
+    <script src="script.js"></script>
+</body>
 
 </html>
