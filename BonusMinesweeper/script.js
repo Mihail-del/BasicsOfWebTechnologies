@@ -208,10 +208,65 @@ function renderBoard() {
             toolbar: false,
             height: 600,
             report: buildReport(jsonData),
+            customizeCell: customizeCell,
         });
     } else {
         pivot.updateData({ data: jsonData });
     }
+}
+
+// =============================================
+// CELL RENDERING
+// =============================================
+
+const CELL_ICONS = {
+    closed: "",
+    flag: "flag",
+    mine: "bomb",
+};
+const NUM_CLASS = ["", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8"];
+
+/**
+ * WDR hook — called for every rendered cell.
+ * We only touch data cells (type === "value"); headers are left as-is.
+ *
+ * cellBuilder.text  — overrides the cell's text content
+ * cellBuilder.html  — overrides with raw HTML
+ * cellBuilder.addClass() — appends a CSS class to the cell
+ *
+ * @param {Object} cellBuilder - WDR cell builder object
+ * @param {Object} cellData    - WDR cell metadata
+ */
+function customizeCell(cellBuilder, cellData) {
+    if (cellData.type !== "value") return;
+
+    const display = cellData.label;
+    const num = parseInt(display, 10);
+    const isNum = !isNaN(num);
+
+    let classes = "ms-cell";
+    let content = "";
+
+    if (display === "closed") {
+        classes += " closed";
+
+    } else if (display === "flag") {
+        classes += " flag";
+        content = `<span class="material-icons">flag</span>`;
+
+    } else if (display === "mine") {
+        classes += " mine";
+        content = `<span class="material-icons">bomb</span>`;
+
+    } else if (isNum && num === 0) {
+        classes += " open";
+
+    } else if (isNum) {
+        classes += ` open n${num}`;
+        content = display;
+    }
+
+    cellBuilder.html = `<div class="${classes}">${content}</div>`;
 }
 
 window.addEventListener("DOMContentLoaded", () => {
