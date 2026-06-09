@@ -189,6 +189,8 @@ function buildReport(jsonData) {
                 showTotals: "off",
                 sorting: "off",
                 showFilter: false,
+                cellWidth: 30,
+                cellHeight: 36,
             },
             configuratorButton: false,
         },
@@ -240,7 +242,7 @@ function customizeCell(cellBuilder, cellData) {
         content = String(code);
     }
 
-    cellBuilder.text = `<div class="${classes}">${content}</div>`;
+    cellBuilder.html = `<div class="${classes}">${content}</div>`;
 }
 
 /**
@@ -255,7 +257,7 @@ function renderBoard() {
         pivot = new WebDataRocks({
             container: "#wdr-component",
             toolbar: false,
-            height: 600,
+            height: gameState.size * 40 + 80,
             report: buildReport(jsonData),
             customizeCell: customizeCell,
         });
