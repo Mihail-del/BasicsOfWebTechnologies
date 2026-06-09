@@ -135,12 +135,14 @@ function initGame(size, mineCount) {
 // WEBDATAROCKS INTEGRATION
 // =============================================
 
-/**
- * Converts the 2D board into a flat JSON array for WebDataRocks.
- * Row/col are zero-padded strings so WDR sorts them correctly
- * @param {Array<Array<Object>>} board
- * @returns {Array<Object>} flat array of cell records
- */
+// State encoded as a number so WDR aggregation doesn't mangle it:
+// -2 = mine, -1 = flag, 0-8 = open with neighborCount, 9 = closed
+const STATE_CODE = {
+    [STATE.MINE]: -2,
+    [STATE.FLAG]: -1,
+    [STATE.CLOSED]: 9,
+};
+
 function boardToJSON(board) {
     const data = [];
     const pad = (n) => String(n).padStart(2, "0");
@@ -149,16 +151,15 @@ function boardToJSON(board) {
         for (let c = 0; c < board[r].length; c++) {
             const cell = board[r][c];
 
-            let display;
-            if (cell.state === STATE.FLAG) display = "flag";
-            else if (cell.state === STATE.CLOSED) display = "closed";
-            else if (cell.state === STATE.MINE) display = "mine";
-            else display = String(cell.neighborCount);
+            // Encode state as number; open cells use neighborCount (0-8)
+            const code = cell.state === STATE.OPEN
+                ? cell.neighborCount
+                : STATE_CODE[cell.state];
 
             data.push({
                 row: `R${pad(r)}`,
                 col: `C${pad(c)}`,
-                display,
+                value: code,
                 rowIdx: r,
                 colIdx: c,
             });
@@ -180,7 +181,7 @@ function buildReport(jsonData) {
         slice: {
             rows: [{ uniqueName: "row" }],
             columns: [{ uniqueName: "col" }],
-            measures: [{ uniqueName: "display", aggregation: "first" }],
+            measures: [{ uniqueName: "value", aggregation: "sum" }],
         },
         options: {
             grid: {
@@ -219,33 +220,27 @@ const NUM_CLASS = ["", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8"];
 function customizeCell(cellBuilder, cellData) {
     if (cellData.type !== "value") return;
 
-    const display = cellData.label;
-    const num = parseInt(display, 10);
-    const isNum = !isNaN(num);
-
+    // Decode numeric state back to visual representation
+    const code = cellData.value;
     let classes = "ms-cell";
     let content = "";
 
-    if (display === "closed") {
+    if (code === 9) {                        // CLOSED
         classes += " closed";
-
-    } else if (display === "flag") {
+    } else if (code === -1) {                // FLAG
         classes += " flag";
         content = `<span class="material-icons">flag</span>`;
-
-    } else if (display === "mine") {
+    } else if (code === -2) {                // MINE
         classes += " mine";
         content = `<span class="material-icons">bomb</span>`;
-
-    } else if (isNum && num === 0) {
+    } else if (code === 0) {                 // OPEN, no neighbours
         classes += " open";
-
-    } else if (isNum) {
-        classes += ` open n${num}`;
-        content = display;
+    } else {                                 // OPEN, 1-8 neighbours
+        classes += ` open n${code}`;
+        content = String(code);
     }
 
-    cellBuilder.html = `<div class="${classes}">${content}</div>`;
+    cellBuilder.text = `<div class="${classes}">${content}</div>`;
 }
 
 /**
