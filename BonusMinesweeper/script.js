@@ -194,27 +194,6 @@ function buildReport(jsonData) {
     };
 }
 
-/**
- * First call: creates the WDR pivot instance.
- * Subsequent calls: updates data in-place via updateData()
- * (faster than setReport - no full re-render).
- */
-function renderBoard() {
-    const jsonData = boardToJSON(gameState.board);
-
-    if (!pivot) {
-        pivot = new WebDataRocks({
-            container: "#wdr-component",
-            toolbar: false,
-            height: 600,
-            report: buildReport(jsonData),
-            customizeCell: customizeCell,
-        });
-    } else {
-        pivot.updateData({ data: jsonData });
-    }
-}
-
 // =============================================
 // CELL RENDERING
 // =============================================
@@ -268,6 +247,28 @@ function customizeCell(cellBuilder, cellData) {
 
     cellBuilder.html = `<div class="${classes}">${content}</div>`;
 }
+
+/**
+ * First call: creates the WDR pivot instance.
+ * Subsequent calls: updates data in-place via updateData()
+ * (faster than setReport - no full re-render).
+ */
+function renderBoard() {
+    const jsonData = boardToJSON(gameState.board);
+
+    if (!pivot) {
+        pivot = new WebDataRocks({
+            container: "#wdr-component",
+            toolbar: false,
+            height: 600,
+            report: buildReport(jsonData),
+            customizeCell: customizeCell,
+        });
+    } else {
+        pivot.updateData({ data: jsonData });
+    }
+}
+
 
 window.addEventListener("DOMContentLoaded", () => {
     initGame(DIFFICULTIES.easy.size, DIFFICULTIES.easy.mines);
