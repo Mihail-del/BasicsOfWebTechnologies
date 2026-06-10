@@ -17,22 +17,28 @@
             <h1>Minesweeper</h1>
         </section>
 
-        <section id="scoreboard">
-            <h2>Minesweeper (WebDataRocks Edition)</h2>
-        </section>
+        <section class="layout-grid">
+            <div class="layout-column layout-column--info">
+                <section id="scoreboard">
+                    <h2>Minesweeper (WebDataRocks Edition)</h2>
+                </section>
 
-        <section id="game-dashboard" aria-label="Game dashboard">
-            <div id="mines-counter">10</div>
-            <button id="smiley-btn" aria-label="Restart game">😊</button>
-            <div id="timer">00:00</div>
-        </section>
+                <section id="game-dashboard" aria-label="Game dashboard">
+                    <div id="mines-counter">10</div>
+                    <button id="smiley-btn" aria-label="Restart game">😊</button>
+                    <div id="timer">00:00</div>
+                </section>
 
-        <section id="game-status" class="game-status" aria-live="polite">
-            <p id="status-label">Clear all safe cells to win.</p>
-        </section>
+                <section id="game-status" class="game-status" aria-live="polite">
+                    <p id="status-label">Clear all safe cells to win.</p>
+                </section>
+            </div>
 
-        <section class="board-wrap">
-            <div id="wdr-component"></div>
+            <div class="layout-column layout-column--board">
+                <section class="board-wrap">
+                    <div id="wdr-component"></div>
+                </section>
+            </div>
         </section>
     </main>
 
