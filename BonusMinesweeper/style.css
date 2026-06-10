@@ -62,6 +62,12 @@ body {
     margin-bottom: 10px;
 }
 
+@media (min-width: 821px) {
+    .hero {
+        text-align: left;
+    }
+}
+
 .layout-grid {
     width: 100%;
     display: grid;
@@ -77,26 +83,10 @@ body {
     min-width: 0;
 }
 
-#scoreboard,
 #game-dashboard,
 .game-status,
 .board-wrap {
     width: 100%;
-}
-
-#scoreboard {
-    text-align: center;
-    padding: 12px 20px;
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    background: var(--surface);
-    box-shadow: 0 14px 36px var(--shadow);
-}
-
-#scoreboard h2 {
-    font-size: 1.1rem;
-    color: var(--accent-2);
-    letter-spacing: 0.08em;
 }
 
 #game-dashboard {
@@ -290,7 +280,6 @@ body {
     }
 
     .hero,
-    #scoreboard,
     #game-dashboard,
     .game-status,
     .board-wrap {
