@@ -5,6 +5,27 @@ let isFirstClick = true;
 let timerInterval = null;
 let timeElapsed = 0;
 let flagsPlaced = 0;
+let hasGameEnded = false;
+const statusContainer = document.getElementById("game-status");
+const statusLabel = document.getElementById("status-label");
+const boardElement = document.getElementById("wdr-component");
+const smileyButton = document.getElementById("smiley-btn");
+
+function updateStatus(message, state = "idle") {
+    statusLabel.textContent = message;
+    statusContainer.classList.remove("is-win", "is-lose");
+    boardElement.classList.remove("is-win", "is-lose");
+
+    if (state === "win") {
+        statusContainer.classList.add("is-win");
+        boardElement.classList.add("is-win");
+    }
+
+    if (state === "lose") {
+        statusContainer.classList.add("is-lose");
+        boardElement.classList.add("is-lose");
+    }
+}
 
 function placeMines(startR, startC) {
     while (minesPlaced < 10) {
@@ -49,7 +70,15 @@ function countNeighborMines() {
 }
 
 function revealCell(r, c) {
-    if (r < 0 || r >= 9 || c < 0 || c >= 9 || gameState[r][c].isRevealed) {
+    if (
+        r < 0 ||
+        r >= 9 ||
+        c < 0 ||
+        c >= 9 ||
+        gameState[r][c].isRevealed ||
+        gameState[r][c].isFlagged ||
+        gameState[r][c].isQuestioned
+    ) {
         return;
     }
 
@@ -61,6 +90,46 @@ function revealCell(r, c) {
                 revealCell(r + dr, c + dc);
             }
         }
+    }
+}
+
+function revealAllMines() {
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if (gameState[r][c].isMine) {
+                gameState[r][c].isRevealed = true;
+            }
+        }
+    }
+}
+
+function hasPlayerWon() {
+    let revealedSafeCells = 0;
+
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            const cell = gameState[r][c];
+
+            if (!cell.isMine && cell.isRevealed) {
+                revealedSafeCells += 1;
+            }
+        }
+    }
+
+    return revealedSafeCells === (9 * 9) - 10;
+}
+
+function endGame(didWin) {
+    hasGameEnded = true;
+    stopTimer();
+    smileyButton.textContent = didWin ? "😎" : "😵";
+    updateStatus(
+        didWin ? "Board cleared. You won this round." : "Boom. A mine was opened.",
+        didWin ? "win" : "lose"
+    );
+
+    if (!didWin) {
+        revealAllMines();
     }
 }
 
@@ -85,8 +154,10 @@ function restartGame() {
     flagsPlaced = 0;
     minesPlaced = 0;
     isFirstClick = true;
+    hasGameEnded = false;
     document.getElementById("mines-counter").textContent = "10";
-    document.getElementById("smiley-btn").textContent = "😊";
+    smileyButton.textContent = "😊";
+    updateStatus("Clear all safe cells to win.");
 
     gameState = [];
     for (let i = 0; i < 9; i++) {
@@ -201,6 +272,10 @@ const pivot = new WebDataRocks({
 });
 
 document.getElementById("wdr-component").addEventListener("click", (event) => {
+    if (hasGameEnded) {
+        return;
+    }
+
     if (event.target.classList.contains("cell") && event.target.classList.contains("hidden")) {
         const r = parseInt(event.target.getAttribute("data-r"), 10);
         const c = parseInt(event.target.getAttribute("data-c"), 10);
@@ -215,14 +290,21 @@ document.getElementById("wdr-component").addEventListener("click", (event) => {
             startTimer();
             placeMines(r, c);
             countNeighborMines();
+            updateStatus("Mines are set. Stay sharp.");
         }
 
         revealCell(r, c);
 
         if (gameState[r][c].isMine) {
-            document.getElementById("smiley-btn").textContent = "😵";
-            alert("Game Over!");
-            stopTimer();
+            endGame(false);
+            pivot.refresh();
+            return;
+        }
+
+        if (hasPlayerWon()) {
+            endGame(true);
+            pivot.refresh();
+            return;
         }
 
         pivot.refresh();
@@ -231,6 +313,10 @@ document.getElementById("wdr-component").addEventListener("click", (event) => {
 
 document.getElementById("wdr-component").addEventListener("contextmenu", (event) => {
     event.preventDefault();
+
+    if (hasGameEnded) {
+        return;
+    }
 
     if (event.target.classList.contains("cell") && event.target.classList.contains("hidden")) {
         const r = parseInt(event.target.getAttribute("data-r"), 10);
@@ -254,4 +340,4 @@ document.getElementById("wdr-component").addEventListener("contextmenu", (event)
     }
 });
 
-document.getElementById("smiley-btn").addEventListener("click", restartGame);
+smileyButton.addEventListener("click", restartGame);

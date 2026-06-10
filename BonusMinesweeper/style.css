@@ -12,6 +12,8 @@
     --surface-2: #2a221c;
     --accent: #cc785c;
     --accent-2: #e8a87c;
+    --success: #83d483;
+    --danger: #f08b7d;
     --text: #f0e6d8;
     --muted: #9a8878;
     --border: #4a392d;
@@ -69,7 +71,8 @@ body {
 }
 
 #scoreboard,
-#game-dashboard {
+#game-dashboard,
+.game-status {
     width: min(100%, 680px);
 }
 
@@ -126,6 +129,42 @@ body {
     border-color: var(--accent);
 }
 
+.game-status {
+    padding: 14px 18px;
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(44, 34, 27, 0.96), rgba(30, 24, 19, 0.96));
+    box-shadow: 0 14px 36px var(--shadow);
+    text-align: center;
+    transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.game-status p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    letter-spacing: 0.04em;
+}
+
+.game-status.is-win {
+    border-color: rgba(131, 212, 131, 0.5);
+    box-shadow: 0 18px 40px rgba(70, 124, 70, 0.28);
+    transform: translateY(-2px);
+}
+
+.game-status.is-win p {
+    color: var(--success);
+}
+
+.game-status.is-lose {
+    border-color: rgba(240, 139, 125, 0.5);
+    box-shadow: 0 18px 40px rgba(120, 54, 44, 0.3);
+    transform: translateY(-2px);
+}
+
+.game-status.is-lose p {
+    color: var(--danger);
+}
+
 .board-wrap {
     width: 100%;
     display: flex;
@@ -141,6 +180,19 @@ body {
     overflow: hidden;
     background: var(--surface-2);
     box-shadow: 0 24px 48px var(--shadow);
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+#wdr-component.is-win {
+    border-color: rgba(131, 212, 131, 0.58);
+    box-shadow: 0 28px 60px rgba(70, 124, 70, 0.3);
+    transform: translateY(-2px);
+}
+
+#wdr-component.is-lose {
+    border-color: rgba(240, 139, 125, 0.58);
+    box-shadow: 0 28px 60px rgba(120, 54, 44, 0.32);
+    transform: translateY(-2px);
 }
 
 .cell {
