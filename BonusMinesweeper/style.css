@@ -211,10 +211,6 @@ body {
 #wdr-component .wdr-cell {
     padding: 0 !important;
     min-width: 30px !important;
-    width: 30px !important;
-    height: 30px !important;
-    background: #241d18 !important;
-    border: none !important;
 }
 
 #wdr-component .wdr-header {
@@ -224,22 +220,8 @@ body {
 }
 
 #wdr-component .wdr-empty,
-#wdr-component .wdr-blank,
-#wdr-component .wdr-icon,
-#wdr-component #wdr-sheet-headers,
-#wdr-component #wdr-rows-sheet,
-#wdr-component .wdr-grid-title,
-#wdr-component .wdr-pivot-title,
-#wdr-component .wdr-auto-calculation-bar,
-#wdr-component .wdr-header-c,
-#wdr-component .wdr-header-r {
+#wdr-component .wdr-blank {
     display: none !important;
-}
-
-#wdr-component #wdr-cols-sheet {
-    position: absolute !important;
-    left: -100px !important;
-    top: -60px !important;
 }
 
 @media (max-width: 640px) {

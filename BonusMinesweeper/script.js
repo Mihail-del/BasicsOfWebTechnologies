@@ -112,6 +112,17 @@ function renderGameCells(cellBuilder, cellData) {
         const col = parseInt(cellData.columns[0].caption.substring(1), 10);
         const cell = gameState[row][col];
 
+        cellBuilder.style = {
+            ...(cellBuilder.style || {}),
+            left: `${col * 30}px`,
+            top: `${row * 30}px`,
+            width: "30px",
+            height: "30px",
+            "min-width": "30px",
+            "min-height": "30px",
+            position: "absolute",
+        };
+
         if (cell.isRevealed) {
             let content = "";
             let classes = "cell revealed";
