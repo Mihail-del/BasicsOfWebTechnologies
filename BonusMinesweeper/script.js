@@ -1,272 +1,246 @@
-// =============================================
-// CONSTANTS & CONFIG
-// =============================================
+let wdrData = [];
+let gameState = [];
+let minesPlaced = 0;
+let isFirstClick = true;
+let timerInterval = null;
+let timeElapsed = 0;
+let flagsPlaced = 0;
 
-const DIFFICULTIES = {
-    easy: { size: 9, mines: 10 },
-    medium: { size: 16, mines: 40 },
-};
+function placeMines(startR, startC) {
+    while (minesPlaced < 10) {
+        const r = Math.floor(Math.random() * 9);
+        const c = Math.floor(Math.random() * 9);
 
-const STATE = {
-    CLOSED: "closed",
-    OPEN: "open",
-    MINE: "mine",
-    FLAG: "flag",
-};
+        if (Math.abs(r - startR) <= 1 && Math.abs(c - startC) <= 1) {
+            continue;
+        }
 
-// =============================================
-// GAME STATE
-// =============================================
-
-let gameState = {
-    board: [],
-    size: 9,
-    mineCount: 10,
-    started: false,
-    over: false,
-};
-
-let pivot = null;
-
-// =============================================
-// BOARD GENERATION
-// =============================================
-
-/**
- * Creates a fresh size×size board filled with closed, mine-free cells.
- * Each cell: { row, col, isMine, state, neighborCount }
- * @param {number} size - board dimension
- * @returns {Array<Array<Object>>} 2D array of cell objects
- */
-function createBoard(size) {
-    const board = [];
-    for (let r = 0; r < size; r++) {
-        board[r] = [];
-        for (let c = 0; c < size; c++) {
-            board[r][c] = {
-                row: r,
-                col: c,
-                isMine: false,
-                state: STATE.CLOSED,
-                neighborCount: 0,
-            };
+        if (!gameState[r][c].isMine) {
+            gameState[r][c].isMine = true;
+            minesPlaced += 1;
         }
     }
-    return board;
 }
 
-/**
- * Randomly places `count` mines on the board.
- * Skips the safe zone around the first click (safeRow, safeCol).
- * @param {Array<Array<Object>>} board
- * @param {number} count - number of mines to place
- * @param {number} safeRow - row of the first click
- * @param {number} safeCol - col of the first click
- */
-function placeMines(board, count, safeRow, safeCol) {
-    const size = board.length;
-    let placed = 0;
-
-    while (placed < count) {
-        const r = Math.floor(Math.random() * size);
-        const c = Math.floor(Math.random() * size);
-
-        // Skip cells that already have a mine
-        if (board[r][c].isMine) continue;
-
-        // Protect a 3×3 area around the first click so it's never instant death
-        if (Math.abs(r - safeRow) <= 1 && Math.abs(c - safeCol) <= 1) continue;
-
-        board[r][c].isMine = true;
-        placed++;
-    }
-}
-
-/**
- * For every non-mine cell, counts how many of its 8 neighbours are mines
- * and stores the result in cell.neighborCount.
- * @param {Array<Array<Object>>} board
- */
-function calcNeighbors(board) {
-    const size = board.length;
-
-    for (let r = 0; r < size; r++) {
-        for (let c = 0; c < size; c++) {
-            if (board[r][c].isMine) continue;
+function countNeighborMines() {
+    for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+            if (gameState[r][c].isMine) {
+                continue;
+            }
 
             let count = 0;
-
             for (let dr = -1; dr <= 1; dr++) {
                 for (let dc = -1; dc <= 1; dc++) {
-                    if (dr === 0 && dc === 0) continue; // skip itself
                     const nr = r + dr;
                     const nc = c + dc;
-                    // Stay inside board bounds
-                    if (nr >= 0 && nr < size && nc >= 0 && nc < size) {
-                        if (board[nr][nc].isMine) count++;
+
+                    if (nr >= 0 && nr < 9 && nc >= 0 && nc < 9) {
+                        if (gameState[nr][nc].isMine) {
+                            count += 1;
+                        }
                     }
                 }
             }
 
-            board[r][c].neighborCount = count;
+            gameState[r][c].neighborMines = count;
         }
     }
 }
 
-/**
- * Creates a new game with the given size and mine count.
- * Board generation is deferred to the first click.
- * @param {number} size
- * @param {number} mineCount
- */
-function initGame(size, mineCount) {
-    gameState = {
-        board: createBoard(size),
-        size,
-        mineCount,
-        started: false,
-        over: false,
-    };
+function revealCell(r, c) {
+    if (r < 0 || r >= 9 || c < 0 || c >= 9 || gameState[r][c].isRevealed) {
+        return;
+    }
 
-    renderBoard();
+    gameState[r][c].isRevealed = true;
+
+    if (gameState[r][c].neighborMines === 0 && !gameState[r][c].isMine) {
+        for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+                revealCell(r + dr, c + dc);
+            }
+        }
+    }
 }
 
-// =============================================
-// WEBDATAROCKS INTEGRATION
-// =============================================
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timeElapsed += 1;
+        const minutes = Math.floor(timeElapsed / 60);
+        const seconds = timeElapsed % 60;
+        document.getElementById("timer").textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }, 1000);
+}
 
-// State encoded as a number so WDR aggregation doesn't mangle it:
-// -2 = mine, -1 = flag, 0-8 = open with neighborCount, 9 = closed
-const STATE_CODE = {
-    [STATE.MINE]: -2,
-    [STATE.FLAG]: -1,
-    [STATE.CLOSED]: 9,
-};
+function stopTimer() {
+    clearInterval(timerInterval);
+}
 
-function boardToJSON(board) {
-    const data = [];
-    const pad = (n) => String(n).padStart(2, "0");
+function restartGame() {
+    stopTimer();
+    timeElapsed = 0;
+    document.getElementById("timer").textContent = "00:00";
 
-    for (let r = 0; r < board.length; r++) {
-        for (let c = 0; c < board[r].length; c++) {
-            const cell = board[r][c];
+    flagsPlaced = 0;
+    minesPlaced = 0;
+    isFirstClick = true;
+    document.getElementById("mines-counter").textContent = "10";
+    document.getElementById("smiley-btn").textContent = "😊";
 
-            // Encode state as number; open cells use neighborCount (0-8)
-            const code = cell.state === STATE.OPEN
-                ? cell.neighborCount
-                : STATE_CODE[cell.state];
-
-            data.push({
-                row: `R${pad(r)}`,
-                col: `C${pad(c)}`,
-                value: code,
-                rowIdx: r,
-                colIdx: c,
+    gameState = [];
+    for (let i = 0; i < 9; i++) {
+        const row = [];
+        for (let j = 0; j < 9; j++) {
+            row.push({
+                isMine: false,
+                isRevealed: false,
+                isFlagged: false,
+                isQuestioned: false,
+                neighborMines: 0,
             });
         }
+        gameState.push(row);
     }
 
-    return data;
+    pivot.refresh();
 }
 
-/**
- * Builds the WDR report config.
- * Grand totals and sorting are off - we just need a clean grid.
- * @param {Array<Object>} jsonData - output of boardToJSON()
- * @returns {Object} WDR report object
- */
-function buildReport(jsonData) {
-    return {
-        dataSource: { data: jsonData },
+function renderGameCells(cellBuilder, cellData) {
+    if (cellData.type === "value" && cellData.rows && cellData.columns && cellData.rows.length > 0 && cellData.columns.length > 0) {
+        const row = parseInt(cellData.rows[0].caption.substring(1), 10);
+        const col = parseInt(cellData.columns[0].caption.substring(1), 10);
+        const cell = gameState[row][col];
+
+        if (cell.isRevealed) {
+            let content = "";
+            let classes = "cell revealed";
+            let inlineStyle = "";
+
+            if (cell.isMine) {
+                content = "💣";
+            } else if (cell.neighborMines > 0) {
+                content = cell.neighborMines;
+                classes += ` n${cell.neighborMines}`;
+                const numberColors = {
+                    1: "#6ab0f5",
+                    2: "#7ec87e",
+                    3: "#f5826a",
+                    4: "#9b7fe8",
+                    5: "#e87e7e",
+                    6: "#7ecfc8",
+                    7: "#d4b8a0",
+                    8: "#9a8878",
+                };
+                inlineStyle = ` style="color:${numberColors[cell.neighborMines]};"`;
+            }
+
+            cellBuilder.text = `<div class="${classes}"${inlineStyle}>${content}</div>`;
+        } else if (cell.isFlagged) {
+            cellBuilder.text = `<div class="cell hidden flagged" data-r="${row}" data-c="${col}">🚩</div>`;
+        } else if (cell.isQuestioned) {
+            cellBuilder.text = `<div class="cell hidden questioned" data-r="${row}" data-c="${col}">❓</div>`;
+        } else {
+            cellBuilder.text = `<div class="cell hidden" data-r="${row}" data-c="${col}"></div>`;
+        }
+    }
+}
+
+for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+        wdrData.push({ Row: `R${i}`, Column: `C${j}`, Value: 1 });
+    }
+}
+
+for (let i = 0; i < 9; i++) {
+    const row = [];
+    for (let j = 0; j < 9; j++) {
+        row.push({
+            isMine: false,
+            isRevealed: false,
+            isFlagged: false,
+            isQuestioned: false,
+            neighborMines: 0,
+        });
+    }
+    gameState.push(row);
+}
+
+const pivot = new WebDataRocks({
+    container: "#wdr-component",
+    customizeCell: renderGameCells,
+    toolbar: false,
+    report: {
+        dataSource: { data: wdrData },
         slice: {
-            rows: [{ uniqueName: "row" }],
-            columns: [{ uniqueName: "col" }],
-            measures: [{ uniqueName: "value", aggregation: "sum" }],
+            rows: [{ uniqueName: "Row" }],
+            columns: [{ uniqueName: "Column" }],
+            measures: [{ uniqueName: "Value" }],
         },
         options: {
+            drillThrough: false,
             grid: {
+                showHeaders: false,
                 showGrandTotals: "off",
                 showTotals: "off",
-                sorting: "off",
-                showFilter: false,
-                cellWidth: 30,
-                cellHeight: 36,
+                showSelection: false,
             },
-            configuratorButton: false,
         },
-    };
-}
-
-// =============================================
-// CELL RENDERING
-// =============================================
-
-const CELL_ICONS = {
-    closed: "",
-    flag: "flag",
-    mine: "bomb",
-};
-const NUM_CLASS = ["", "n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8"];
-
-/**
- * WDR hook — called for every rendered cell.
- * We only touch data cells (type === "value"); headers are left as-is.
- *
- * cellBuilder.text  — overrides the cell's text content
- * cellBuilder.html  — overrides with raw HTML
- * cellBuilder.addClass() — appends a CSS class to the cell
- *
- * @param {Object} cellBuilder - WDR cell builder object
- * @param {Object} cellData    - WDR cell metadata
- */
-function customizeCell(cellBuilder, cellData) {
-    if (cellData.type !== "value") return;
-
-    // Decode numeric state back to visual representation
-    const code = cellData.value;
-    let classes = "ms-cell";
-    let content = "";
-
-    if (code === 9) {                        // CLOSED
-        classes += " closed";
-    } else if (code === -1) {                // FLAG
-        classes += " flag";
-        content = `<span class="material-icons">flag</span>`;
-    } else if (code === -2) {                // MINE
-        classes += " mine";
-        content = `<span class="material-icons">bomb</span>`;
-    } else if (code === 0) {                 // OPEN, no neighbours
-        classes += " open";
-    } else {                                 // OPEN, 1-8 neighbours
-        classes += ` open n${code}`;
-        content = String(code);
-    }
-
-    cellBuilder.html = `<div class="${classes}">${content}</div>`;
-}
-
-/**
- * First call: creates the WDR pivot instance.
- * Subsequent calls: updates data in-place via updateData()
- * (faster than setReport - no full re-render).
- */
-function renderBoard() {
-    const jsonData = boardToJSON(gameState.board);
-
-    if (!pivot) {
-        pivot = new WebDataRocks({
-            container: "#wdr-component",
-            toolbar: false,
-            height: gameState.size * 40 + 80,
-            report: buildReport(jsonData),
-            customizeCell: customizeCell,
-        });
-    } else {
-        pivot.updateData({ data: jsonData });
-    }
-}
-
-
-window.addEventListener("DOMContentLoaded", () => {
-    initGame(DIFFICULTIES.easy.size, DIFFICULTIES.easy.mines);
+    },
 });
+
+document.getElementById("wdr-component").addEventListener("click", (event) => {
+    if (event.target.classList.contains("cell") && event.target.classList.contains("hidden")) {
+        const r = parseInt(event.target.getAttribute("data-r"), 10);
+        const c = parseInt(event.target.getAttribute("data-c"), 10);
+        const cell = gameState[r][c];
+
+        if (cell.isFlagged || cell.isQuestioned) {
+            return;
+        }
+
+        if (isFirstClick) {
+            isFirstClick = false;
+            startTimer();
+            placeMines(r, c);
+            countNeighborMines();
+        }
+
+        revealCell(r, c);
+
+        if (gameState[r][c].isMine) {
+            document.getElementById("smiley-btn").textContent = "😵";
+            alert("Game Over!");
+            stopTimer();
+        }
+
+        pivot.refresh();
+    }
+});
+
+document.getElementById("wdr-component").addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+
+    if (event.target.classList.contains("cell") && event.target.classList.contains("hidden")) {
+        const r = parseInt(event.target.getAttribute("data-r"), 10);
+        const c = parseInt(event.target.getAttribute("data-c"), 10);
+        const cell = gameState[r][c];
+
+        if (!cell.isFlagged && !cell.isQuestioned) {
+            cell.isFlagged = true;
+            flagsPlaced += 1;
+            document.getElementById("mines-counter").textContent = String(10 - flagsPlaced);
+        } else if (cell.isFlagged && !cell.isQuestioned) {
+            cell.isFlagged = false;
+            cell.isQuestioned = true;
+            flagsPlaced -= 1;
+            document.getElementById("mines-counter").textContent = String(10 - flagsPlaced);
+        } else if (!cell.isFlagged && cell.isQuestioned) {
+            cell.isQuestioned = false;
+        }
+
+        pivot.refresh();
+    }
+});
+
+document.getElementById("smiley-btn").addEventListener("click", restartGame);
