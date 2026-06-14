@@ -11,6 +11,11 @@ const statusLabel = document.getElementById("status-label");
 const boardElement = document.getElementById("wdr-component");
 const smileyButton = document.getElementById("smiley-btn");
 
+/**
+ * Updates the status message and board state.
+ * @param {string} message - The status message.
+ * @param {string} state - The game state.
+ */
 function updateStatus(message, state = "idle") {
     statusLabel.textContent = message;
     statusContainer.classList.remove("is-win", "is-lose");
@@ -27,6 +32,11 @@ function updateStatus(message, state = "idle") {
     }
 }
 
+/**
+ * Places mines on the board.
+ * @param {number} startR - The starting row index.
+ * @param {number} startC - The starting column index.
+ */
 function placeMines(startR, startC) {
     while (minesPlaced < 10) {
         const r = Math.floor(Math.random() * 9);
@@ -43,6 +53,9 @@ function placeMines(startR, startC) {
     }
 }
 
+/**
+ * Counts the number of mines in the neighbors of each cell.
+ */
 function countNeighborMines() {
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
@@ -69,6 +82,11 @@ function countNeighborMines() {
     }
 }
 
+/**
+ * Reveals a cell on the board.
+ * @param {number} r - The row index.
+ * @param {number} c - The column index.
+ */
 function revealCell(r, c) {
     if (
         r < 0 ||
@@ -93,6 +111,9 @@ function revealCell(r, c) {
     }
 }
 
+/**
+ * Reveals all mines on the board.
+ */
 function revealAllMines() {
     for (let r = 0; r < 9; r++) {
         for (let c = 0; c < 9; c++) {
@@ -103,6 +124,10 @@ function revealAllMines() {
     }
 }
 
+/**
+ * Checks if the player has won.
+ * @returns {boolean} True if the player has won, false otherwise.
+ */
 function hasPlayerWon() {
     let revealedSafeCells = 0;
 
@@ -119,6 +144,10 @@ function hasPlayerWon() {
     return revealedSafeCells === (9 * 9) - 10;
 }
 
+/**
+ * Ends the game.
+ * @param {boolean} didWin - True if the player won, false otherwise.
+ */
 function endGame(didWin) {
     hasGameEnded = true;
     stopTimer();
@@ -133,6 +162,9 @@ function endGame(didWin) {
     }
 }
 
+/**
+ * Starts the timer.
+ */
 function startTimer() {
     timerInterval = setInterval(() => {
         timeElapsed += 1;
@@ -142,10 +174,16 @@ function startTimer() {
     }, 1000);
 }
 
+/**
+ * Stops the timer.
+ */
 function stopTimer() {
     clearInterval(timerInterval);
 }
 
+/**
+ * Restarts the game.
+ */
 function restartGame() {
     stopTimer();
     timeElapsed = 0;
@@ -177,6 +215,12 @@ function restartGame() {
     pivot.refresh();
 }
 
+/**
+ * Renders the game cells in the pivot table.
+ * @param {object} cellBuilder - The cell builder object.
+ * @param {object} cellData - The cell data object.
+ * @returns {void}
+ */
 function renderGameCells(cellBuilder, cellData) {
     if (cellData.type === "value" && cellData.rows && cellData.columns && cellData.rows.length > 0 && cellData.columns.length > 0) {
         const row = parseInt(cellData.rows[0].caption.substring(1), 10);
@@ -248,6 +292,10 @@ for (let i = 0; i < 9; i++) {
     gameState.push(row);
 }
 
+/**
+ * Initializes the WebDataRocks pivot table component.
+ * @param {object} pivot - The pivot table instance.
+ */
 const pivot = new WebDataRocks({
     container: "#wdr-component",
     customizeCell: renderGameCells,
@@ -271,6 +319,12 @@ const pivot = new WebDataRocks({
     },
 });
 
+
+/**
+ * Handles left-click events on the game board.
+ * @param {Event} event - The click event.
+ * @returns {void}
+ */
 document.getElementById("wdr-component").addEventListener("click", (event) => {
     if (hasGameEnded) {
         return;
@@ -311,6 +365,11 @@ document.getElementById("wdr-component").addEventListener("click", (event) => {
     }
 });
 
+/**
+ * Handles right-click context menu events on the game board.
+ * @param {Event} event - The contextmenu event.
+ * @returns {void}
+*/
 document.getElementById("wdr-component").addEventListener("contextmenu", (event) => {
     event.preventDefault();
 
