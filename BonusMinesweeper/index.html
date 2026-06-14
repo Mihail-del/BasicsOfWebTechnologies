@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minesweeper</title>
+
+    <link href="https://cdn.webdatarocks.com/latest/webdatarocks.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <main class="app-shell">
+        <section class="layout-grid">
+            <div class="layout-column layout-column--info">
+                <section class="hero">
+                    <p class="eyebrow">WebDataRocks Edition</p>
+                    <h1>Minesweeper</h1>
+                </section>
+
+                <section id="game-dashboard" aria-label="Game dashboard">
+                    <div id="mines-counter">10</div>
+                    <button id="smiley-btn" aria-label="Restart game">😊</button>
+                    <div id="timer">00:00</div>
+                </section>
+
+                <section id="game-status" class="game-status" aria-live="polite">
+                    <p id="status-label">Clear all safe cells to win.</p>
+                </section>
+            </div>
+
+            <div class="layout-column layout-column--board">
+                <section class="board-wrap">
+                    <div id="wdr-component"></div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.toolbar.min.js"></script>
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
